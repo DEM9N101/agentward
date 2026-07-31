@@ -1,0 +1,8 @@
+# Line endings are normalized to LF in the repository. This matters for
+# bin/agentward.js in particular: a CRLF shebang makes the CLI fail on Linux
+# with "bad interpreter: /usr/bin/env node\r".
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.gif binary

@@ -1,0 +1,7 @@
+node_modules/
+*.log
+*.tgz
+.DS_Store
+agentward.sarif
+agentward-report.*
+.agentward-baseline.json

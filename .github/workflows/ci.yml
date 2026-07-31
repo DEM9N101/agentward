@@ -1,0 +1,55 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: ['18.x', '20.x', '22.x', '24.x']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --test
+
+  no-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      # The zero-dependency promise is load bearing for a supply-chain scanner,
+      # so it is enforced rather than documented.
+      - name: Assert no runtime or dev dependencies
+        run: |
+          node -e "
+            const pkg = require('./package.json');
+            const deps = { ...pkg.dependencies, ...pkg.devDependencies, ...pkg.peerDependencies };
+            const names = Object.keys(deps);
+            if (names.length) {
+              console.error('agentward must have no dependencies, found:', names.join(', '));
+              process.exit(1);
+            }
+            console.log('confirmed: zero dependencies');
+          "
+
+  self-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      # agentward scans its own repository. A tool that flags hidden Unicode in
+      # other people's skills must not ship any of its own. The home directory
+      # is pointed at an empty temp dir so this judges the repo and nothing else.
+      - run: node bin/agentward.js --cwd . --home "$(mktemp -d)" --no-env --fail-on low

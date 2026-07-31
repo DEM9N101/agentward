@@ -1,0 +1,46 @@
+{
+  "name": "agentward",
+  "version": "0.1.0",
+  "description": "Audit what your AI agents can actually do to your machine. Scans installed MCP servers, skills, hooks and agent configs for leaked credentials, prompt injection, exfiltration and over-broad permissions. Offline, read-only, zero dependencies.",
+  "bin": {
+    "agentward": "bin/agentward.js"
+  },
+  "main": "src/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check bin/agentward.js",
+    "scan": "node bin/agentward.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "mcp",
+    "mcp-security",
+    "ai-agent",
+    "agent-security",
+    "prompt-injection",
+    "supply-chain",
+    "security-scanner",
+    "claude-code",
+    "skills",
+    "audit",
+    "sarif"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DEM9N101/agentward.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DEM9N101/agentward/issues"
+  },
+  "homepage": "https://github.com/DEM9N101/agentward#readme"
+}
