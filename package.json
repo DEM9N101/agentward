@@ -1,5 +1,5 @@
 {
-  "name": "agentward",
+  "name": "agent-ward",
   "version": "0.1.0",
   "description": "Audit what your AI agents can actually do to your machine. Scans installed MCP servers, skills, hooks and agent configs for leaked credentials, prompt injection, exfiltration and over-broad permissions. Offline, read-only, zero dependencies.",
   "bin": {

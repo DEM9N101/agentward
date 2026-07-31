@@ -3,10 +3,12 @@
 Audit what your AI agents can actually do to your machine.
 
 ```bash
-npx agentward
+npx github:DEM9N101/agentward
 ```
 
 One command. No install, no account, no config. It reads the agent tooling already on your computer and tells you what each piece can reach, what it sends out, and what it has left lying around in plaintext.
+
+(The bare npm name `agentward` is held by an unrelated empty placeholder package, so the GitHub form above is the way to run it.)
 
 Runs entirely offline. Never writes to anything it scans. Zero dependencies.
 
@@ -76,7 +78,7 @@ It also checks the project you are standing in, because a cloned repo can ship a
 | AW5xx provenance | Code executed from Downloads or temp, unpinned `npx -y` and `@latest`, plaintext HTTP endpoints, third-party marketplaces, loose scripts with no package boundary |
 | AW6xx integrity | Executables bundled beside instructions, symlinks escaping a skill directory, oversized instruction files, confusable characters in names |
 
-Run `npx agentward --list-rules` for the full list.
+There are 33 rules. Run `--list-rules` for the full list.
 
 The Unicode tag rule is the one worth understanding. Codepoints U+E0000 to U+E007F render as absolutely nothing. Your editor shows a blank. GitHub shows a blank. The model reads them as plain ASCII. agentward decodes them and prints the hidden text back to you.
 
@@ -97,7 +99,7 @@ A scanner that quietly phones home, or ships four hundred transitive dependencie
 SARIF output drops straight into GitHub code scanning:
 
 ```yaml
-- run: npx agentward --format sarif --output agentward.sarif --fail-on none
+- run: npx github:DEM9N101/agentward --format sarif --output agentward.sarif --fail-on none
 - uses: github/codeql-action/upload-sarif@v3
   with:
     sarif_file: agentward.sarif
@@ -108,8 +110,8 @@ Exit codes: 0 when nothing meets the threshold, 1 when something does, 2 when ag
 Accept the findings you have decided to live with and only get told about new ones:
 
 ```bash
-npx agentward --write-baseline .agentward-baseline.json
-npx agentward --baseline .agentward-baseline.json
+npx github:DEM9N101/agentward --write-baseline .agentward-baseline.json
+npx github:DEM9N101/agentward --baseline .agentward-baseline.json
 ```
 
 ## Options
