@@ -1,0 +1,5 @@
+# Third-party RE tooling clones — re-clone on demand, do not vendor.
+tools/
+# Target binaries — can be large and are untrusted inputs.
+binaries/*
+!binaries/.gitkeep
