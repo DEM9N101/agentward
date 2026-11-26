@@ -1,0 +1,150 @@
+{
+ "lead": 0.8,
+ "tail": 1.6,
+ "lines": [
+  {
+   "id": "intro",
+   "text": "Echt oder Fake? Heute geht es um Medien, künstliche Intelligenz und die Frage, was wir eigentlich noch glauben können.",
+   "after": 0.6,
+   "file": "intro.mp3"
+  },
+  {
+   "id": "feed",
+   "text": "Jeden Tag sehen wir tausende Posts, Videos und Nachrichten. Auf dem Handy, überall.",
+   "after": 0.6,
+   "file": "feed.mp3"
+  },
+  {
+   "id": "fake",
+   "text": "Aber nicht alles davon ist wahr. Fake News sind erfundene Meldungen, die extra echt aussehen sollen.",
+   "after": 0.7,
+   "file": "fake.mp3"
+  },
+  {
+   "id": "spread",
+   "text": "Und Lügen verbreiten sich oft schneller als die Wahrheit. Ein Klick, und tausende teilen sie weiter.",
+   "after": 0.7,
+   "file": "spread.mp3"
+  },
+  {
+   "id": "ki",
+   "text": "Mit künstlicher Intelligenz wird es noch schwieriger. Deepfakes sind gefälschte Bilder, Videos und sogar Stimmen.",
+   "after": 0.6,
+   "file": "ki.mp3"
+  },
+  {
+   "id": "real",
+   "text": "Ist dieses Gesicht echt? Oder hat es eine KI gemacht? Oft kann man das kaum noch erkennen.",
+   "after": 0.9,
+   "file": "real.mp3"
+  },
+  {
+   "id": "ex_intro",
+   "text": "Das ist kein Zukunftsproblem. Es ist schon oft passiert. Hier ein paar bekannte Beispiele.",
+   "file": "ex_intro.mp3",
+   "after": 0.4
+  },
+  {
+   "id": "ex_pope",
+   "text": "Im März 2023 ging ein Bild um die Welt: Papst Franziskus in einer weißen Daunenjacke. Millionen hielten es für echt. Es wurde mit einer KI erstellt.",
+   "file": "ex_pope.mp3",
+   "after": 0.8
+  },
+  {
+   "id": "ex_pentagon",
+   "text": "Im Mai 2023 zeigte ein gefälschtes Bild eine Explosion am Pentagon in den USA. Für kurze Zeit fielen sogar die Kurse an der Börse.",
+   "file": "ex_pentagon.mp3",
+   "after": 0.8
+  },
+  {
+   "id": "ex_selenskyj",
+   "text": "Und 2022 tauchte ein Deepfake-Video auf, in dem der ukrainische Präsident Selenskyj angeblich zur Kapitulation aufrief. Auch das war komplett gefälscht.",
+   "file": "ex_selenskyj.mp3",
+   "after": 0.9
+  },
+  {
+   "id": "old",
+   "text": "Ältere Menschen werden oft zum Ziel. Zum Beispiel mit Anrufen, bei denen eine KI die Stimme vom Enkel nachmacht.",
+   "after": 0.7,
+   "file": "old.mp3"
+  },
+  {
+   "id": "young",
+   "text": "Aber auch Jugendliche fallen darauf rein. Wer schnell scrollt und sofort teilt, prüft selten nach.",
+   "after": 0.7,
+   "file": "young.mp3"
+  },
+  {
+   "id": "effects",
+   "text": "Die Folge: Menschen streiten, verlieren Geld, und am Ende weiß man nicht mehr, wem man glauben soll.",
+   "after": 0.9,
+   "file": "effects.mp3"
+  },
+  {
+   "id": "qa_intro",
+   "text": "Aber was kann man dagegen tun? Hier sind die wichtigsten Fragen und Antworten.",
+   "file": "qa_intro.mp3",
+   "after": 0.7
+  },
+  {
+   "id": "q1",
+   "text": "Wie erkenne ich ein Deepfake?",
+   "file": "q1.mp3",
+   "after": 0.4
+  },
+  {
+   "id": "a1",
+   "text": "Schau genau hin: Augen, Hände, Zähne und Ränder sehen bei KI-Bildern oft komisch aus. Und frag dich immer: Wer hat das zuerst gepostet?",
+   "file": "a1.mp3",
+   "after": 0.9
+  },
+  {
+   "id": "q2",
+   "text": "Wie können sich junge Leute schützen?",
+   "file": "q2.mp3",
+   "after": 0.4
+  },
+  {
+   "id": "a2",
+   "text": "Nicht sofort teilen. Prüf die Quelle, nutze die umgekehrte Bildersuche, und schau bei Faktencheckern wie Correctiv oder dem dpa-Faktencheck nach.",
+   "file": "a2.mp3",
+   "after": 0.9
+  },
+  {
+   "id": "q3",
+   "text": "Und wie schützen wir ältere Menschen?",
+   "file": "q3.mp3",
+   "after": 0.4
+  },
+  {
+   "id": "a3",
+   "text": "Redet mit euren Großeltern darüber. Macht ein Familien-Codewort aus. Und wenn jemand am Telefon Geld will: auflegen und selbst zurückrufen.",
+   "file": "a3.mp3",
+   "after": 0.9
+  },
+  {
+   "id": "q4",
+   "text": "Was mache ich, wenn ich doch eine Fake News geteilt habe?",
+   "file": "q4.mp3",
+   "after": 0.4
+  },
+  {
+   "id": "a4",
+   "text": "Kein Problem, das passiert. Lösch den Beitrag, schreib eine Korrektur und sag den anderen Bescheid.",
+   "file": "a4.mp3",
+   "after": 1.0
+  },
+  {
+   "id": "check",
+   "text": "Deshalb gilt: Erst prüfen, dann teilen! Wer sagt das? Gibt es eine Quelle? Berichten auch andere darüber?",
+   "after": 0.8,
+   "file": "check.mp3"
+  },
+  {
+   "id": "outro",
+   "text": "Denk nach, bevor du teilst. Bleib kritisch!",
+   "after": 0.5,
+   "file": "outro.mp3"
+  }
+ ]
+}

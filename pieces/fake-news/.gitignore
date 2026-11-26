@@ -1,0 +1,7 @@
+frames/
+renders/
+*.png
+voice/voice.wav
+export.log
+audio*.wav
+stems/

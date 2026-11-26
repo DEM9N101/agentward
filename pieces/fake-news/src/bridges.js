@@ -1,15 +1,18 @@
 // ERAS, CAMERAS, BRIDGES — Fake News & Deepfakes
-const ERA_BG = ['#f2ead8', '#efe3c4', '#ece6d6', '#f2ead8', '#efe8d2'];
+const ERA_BG = ERA_IDS.map((_, i) => ['#f2ead8', '#efe3c4', '#ece6d6'][i % 3]);
 function pieceCam(era, t) {
-  if (era === 0) return push(t, 1.4, 2.4, { z: 1.15, p: [540, 700], to: [540, 700] }, 4.2, 5.4);
-  if (era === 1) return push(t, 6.6, 7.4, { z: 1.12, p: [540, 720], to: [540, 760] }, 7.6, 8.6);
-  if (era === 2) return push(t, 14.3, 15.3, { z: 1.12, p: [715, 760], to: [600, 780] }, 16.6, 17.6);
-  if (era === 4) return push(t, 28.3, 29.3, { z: 1.08, p: [500, 1000], to: [500, 960] });
+  const id = ERA_IDS[era];
+  if (id === 'ex_pope') return push(t, W0('ex_pope') + 8.4, W0('ex_pope') + 9.4, { z: 1.12, p: [500, 760], to: [500, 760] });
+  if (id === 'ex_pentagon') return push(t, W0('ex_pentagon') + 1, W0('ex_pentagon') + 3, { z: 1.08, p: [600, 760], to: [560, 760] }, W0('ex_pentagon') + 5.5, W0('ex_pentagon') + 6.5);
+  if (id === 'real') return push(t, ERA_T[5] + 2.4, ERA_T[5] + 3.4, { z: 1.08, p: [500, 760], to: [500, 760] });
   return null;
 }
-const BRIDGES = [
-  { tc: 6, A: () => ({ P: PH0, c: SK.sheet }), B: () => ({ P: PH1, c: SK.sheet }) },
-  { tc: 12, A: () => ({ P: PH1, c: SK.sheet }), B: () => ({ P: FR_L, c: SK.sheet }) },
-  { tc: 18, A: () => ({ P: FR_R, c: '#f6dfc6' }), B: () => ({ P: loopPts(OLD.x, OLD.y, OLD.r, OLD.r, 0, 0, 40), c: '#f6dfc6' }) },
-  { tc: 24, A: () => ({ P: loopPts(OLD.x, OLD.y, OLD.r, OLD.r, 0, 0, 40), c: '#f6dfc6' }), B: () => ({ P: loopPts(LENS.x, LENS.y, LENS.r, LENS.r, 0, 0, 40), c: SK.hilite }) },
+const hb = (x, y, r) => loopPts(x, y, r, r, 0, 0, 40);
+const SHAPES = [
+  [PH_S, PH, SK.sheet], [PH, NP, SK.sheet], [NP, CARD0, SK.sheet], [CARD0, KB, '#e7e2d6'], [FACE_OV, FR_R, SKIN],
+  [FR_R, CORK_M, '#fffdf6'], [CORK_M, PF, '#fffdf6'], [PF, PF, '#fffdf6'], [PF, VID, '#fffdf6'], [VID, hb(OLD.x, OLD.y, OLD.r), SKIN],
+  [hb(OLD.x, OLD.y, OLD.r), hb(HERO_Y.x, HERO_Y.y, HERO_Y.r), SK.terra], [hb(HERO_Y.x, HERO_Y.y, HERO_Y.r), hb(GAUGE.x, GAUGE.y, GAUGE.r), SK.sheet],
+  [hb(GAUGE.x, GAUGE.y, GAUGE.r), hb(250, 840, 100), SK.sheet], [hb(250, 840, 100), QB, '#fffdf6'], [QB, QB, '#fffdf6'], [QB, QB, '#fffdf6'], [QB, QB, '#fffdf6'],
+  [QB, CARD_L, '#fffdf6'], [hb(LENS.x, LENS.y + 120, LENS.r), hb(CX, 900, 150), SK.terra],
 ];
+const BRIDGES = SHAPES.map(([a, b, c], i) => ({ tc: ERA_T[i + 1], A: () => ({ P: a, c }), B: () => ({ P: b, c }) }));

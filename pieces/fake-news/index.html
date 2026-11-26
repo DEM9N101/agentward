@@ -14,51 +14,42 @@
 <canvas id="c" width="1080" height="1920"></canvas>
 <script>
 "use strict";
+// ---- voice.json (tools/voice.mjs): the voice-over's lines and word times
+const VOICE = {"duration":186.759,"lead":0.8,"tail":1.6,"lines":[{"id":"intro","text":"Echt oder Fake? Heute geht es um Medien, künstliche Intelligenz und die Frage, was wir eigentlich noch glauben können.","t0":0.8,"t1":8.425,"words":[{"w":"Echt","t0":0.8,"t1":1.137,"est":true},{"w":"oder","t0":1.137,"t1":1.475,"est":true},{"w":"Fake?","t0":1.475,"t1":1.812,"est":true},{"w":"Heute","t0":1.812,"t1":2.217,"est":true},{"w":"geht","t0":2.217,"t1":2.554,"est":true},{"w":"es","t0":2.554,"t1":2.757,"est":true},{"w":"um","t0":2.757,"t1":2.959,"est":true},{"w":"Medien,","t0":2.959,"t1":3.432,"est":true},{"w":"künstliche","t0":3.432,"t1":4.106,"est":true},{"w":"Intelligenz","t0":4.106,"t1":4.916,"est":true},{"w":"und","t0":4.916,"t1":5.186,"est":true},{"w":"die","t0":5.186,"t1":5.456,"est":true},{"w":"Frage,","t0":5.456,"t1":5.861,"est":true},{"w":"was","t0":5.861,"t1":6.131,"est":true},{"w":"wir","t0":6.131,"t1":6.401,"est":true},{"w":"eigentlich","t0":6.401,"t1":7.143,"est":true},{"w":"noch","t0":7.143,"t1":7.48,"est":true},{"w":"glauben","t0":7.48,"t1":8.02,"est":true},{"w":"können.","t0":8.02,"t1":8.425,"est":true}]},{"id":"feed","text":"Jeden Tag sehen wir tausende Posts, Videos und Nachrichten. Auf dem Handy, überall.","t0":9.025,"t1":14.492,"words":[{"w":"Jeden","t0":9.025,"t1":9.44,"est":true},{"w":"Tag","t0":9.44,"t1":9.717,"est":true},{"w":"sehen","t0":9.717,"t1":10.132,"est":true},{"w":"wir","t0":10.132,"t1":10.409,"est":true},{"w":"tausende","t0":10.409,"t1":11.032,"est":true},{"w":"Posts,","t0":11.032,"t1":11.447,"est":true},{"w":"Videos","t0":11.447,"t1":11.932,"est":true},{"w":"und","t0":11.932,"t1":12.208,"est":true},{"w":"Nachrichten.","t0":12.208,"t1":13.039,"est":true},{"w":"Auf","t0":13.039,"t1":13.316,"est":true},{"w":"dem","t0":13.316,"t1":13.592,"est":true},{"w":"Handy,","t0":13.592,"t1":14.008,"est":true},{"w":"überall.","t0":14.008,"t1":14.492,"est":true}]},{"id":"fake","text":"Aber nicht alles davon ist wahr. Fake News sind erfundene Meldungen, die extra echt aussehen sollen.","t0":15.092,"t1":22.068,"words":[{"w":"Aber","t0":15.092,"t1":15.448,"est":true},{"w":"nicht","t0":15.448,"t1":15.875,"est":true},{"w":"alles","t0":15.875,"t1":16.302,"est":true},{"w":"davon","t0":16.302,"t1":16.729,"est":true},{"w":"ist","t0":16.729,"t1":17.014,"est":true},{"w":"wahr.","t0":17.014,"t1":17.37,"est":true},{"w":"Fake","t0":17.37,"t1":17.726,"est":true},{"w":"News","t0":17.726,"t1":18.082,"est":true},{"w":"sind","t0":18.082,"t1":18.438,"est":true},{"w":"erfundene","t0":18.438,"t1":19.149,"est":true},{"w":"Meldungen,","t0":19.149,"t1":19.861,"est":true},{"w":"die","t0":19.861,"t1":20.146,"est":true},{"w":"extra","t0":20.146,"t1":20.573,"est":true},{"w":"echt","t0":20.573,"t1":20.929,"est":true},{"w":"aussehen","t0":20.929,"t1":21.57,"est":true},{"w":"sollen.","t0":21.57,"t1":22.068,"est":true}]},{"id":"spread","text":"Und Lügen verbreiten sich oft schneller als die Wahrheit. Ein Klick, und tausende teilen sie weiter.","t0":22.768,"t1":28.737,"words":[{"w":"Und","t0":22.768,"t1":23.014,"est":true},{"w":"Lügen","t0":23.014,"t1":23.322,"est":true},{"w":"verbreiten","t0":23.322,"t1":23.999,"est":true},{"w":"sich","t0":23.999,"t1":24.306,"est":true},{"w":"oft","t0":24.306,"t1":24.553,"est":true},{"w":"schneller","t0":24.553,"t1":25.168,"est":true},{"w":"als","t0":25.168,"t1":25.414,"est":true},{"w":"die","t0":25.414,"t1":25.66,"est":true},{"w":"Wahrheit.","t0":25.66,"t1":26.214,"est":true},{"w":"Ein","t0":26.214,"t1":26.46,"est":true},{"w":"Klick,","t0":26.46,"t1":26.829,"est":true},{"w":"und","t0":26.829,"t1":27.076,"est":true},{"w":"tausende","t0":27.076,"t1":27.629,"est":true},{"w":"teilen","t0":27.629,"t1":28.06,"est":true},{"w":"sie","t0":28.06,"t1":28.306,"est":true},{"w":"weiter.","t0":28.306,"t1":28.737,"est":true}]},{"id":"ki","text":"Mit künstlicher Intelligenz wird es noch schwieriger. Deepfakes sind gefälschte Bilder, Videos und sogar Stimmen.","t0":29.437,"t1":37.326,"words":[{"w":"Mit","t0":29.437,"t1":29.727,"est":true},{"w":"künstlicher","t0":29.727,"t1":30.523,"est":true},{"w":"Intelligenz","t0":30.523,"t1":31.391,"est":true},{"w":"wird","t0":31.391,"t1":31.753,"est":true},{"w":"es","t0":31.753,"t1":31.97,"est":true},{"w":"noch","t0":31.97,"t1":32.332,"est":true},{"w":"schwieriger.","t0":32.332,"t1":33.201,"est":true},{"w":"Deepfakes","t0":33.201,"t1":33.924,"est":true},{"w":"sind","t0":33.924,"t1":34.286,"est":true},{"w":"gefälschte","t0":34.286,"t1":35.01,"est":true},{"w":"Bilder,","t0":35.01,"t1":35.517,"est":true},{"w":"Videos","t0":35.517,"t1":36.023,"est":true},{"w":"und","t0":36.023,"t1":36.313,"est":true},{"w":"sogar","t0":36.313,"t1":36.747,"est":true},{"w":"Stimmen.","t0":36.747,"t1":37.326,"est":true}]},{"id":"real","text":"Ist dieses Gesicht echt? Oder hat es eine KI gemacht? Oft kann man das kaum noch erkennen.","t0":37.926,"t1":43.874,"words":[{"w":"Ist","t0":37.926,"t1":38.196,"est":true},{"w":"dieses","t0":38.196,"t1":38.669,"est":true},{"w":"Gesicht","t0":38.669,"t1":39.21,"est":true},{"w":"echt?","t0":39.21,"t1":39.548,"est":true},{"w":"Oder","t0":39.548,"t1":39.886,"est":true},{"w":"hat","t0":39.886,"t1":40.156,"est":true},{"w":"es","t0":40.156,"t1":40.359,"est":true},{"w":"eine","t0":40.359,"t1":40.697,"est":true},{"w":"KI","t0":40.697,"t1":40.9,"est":true},{"w":"gemacht?","t0":40.9,"t1":41.441,"est":true},{"w":"Oft","t0":41.441,"t1":41.711,"est":true},{"w":"kann","t0":41.711,"t1":42.049,"est":true},{"w":"man","t0":42.049,"t1":42.319,"est":true},{"w":"das","t0":42.319,"t1":42.59,"est":true},{"w":"kaum","t0":42.59,"t1":42.928,"est":true},{"w":"noch","t0":42.928,"t1":43.266,"est":true},{"w":"erkennen.","t0":43.266,"t1":43.874,"est":true}]},{"id":"ex_intro","text":"Das ist kein Zukunftsproblem. Es ist schon oft passiert. Hier ein paar bekannte Beispiele.","t0":44.774,"t1":50.702,"words":[{"w":"Das","t0":44.774,"t1":45.043,"est":true},{"w":"ist","t0":45.043,"t1":45.313,"est":true},{"w":"kein","t0":45.313,"t1":45.65,"est":true},{"w":"Zukunftsproblem.","t0":45.65,"t1":46.728,"est":true},{"w":"Es","t0":46.728,"t1":46.93,"est":true},{"w":"ist","t0":46.93,"t1":47.199,"est":true},{"w":"schon","t0":47.199,"t1":47.603,"est":true},{"w":"oft","t0":47.603,"t1":47.873,"est":true},{"w":"passiert.","t0":47.873,"t1":48.479,"est":true},{"w":"Hier","t0":48.479,"t1":48.816,"est":true},{"w":"ein","t0":48.816,"t1":49.085,"est":true},{"w":"paar","t0":49.085,"t1":49.422,"est":true},{"w":"bekannte","t0":49.422,"t1":50.028,"est":true},{"w":"Beispiele.","t0":50.028,"t1":50.702,"est":true}]},{"id":"ex_pope","text":"Im März 2023 ging ein Bild um die Welt: Papst Franziskus in einer weißen Daunenjacke. Millionen hielten es für echt. Es wurde mit einer KI erstellt.","t0":51.102,"t1":63.728,"words":[{"w":"Im","t0":51.102,"t1":51.369,"est":true},{"w":"März","t0":51.369,"t1":51.724,"est":true},{"w":"2023","t0":51.724,"t1":52.169,"est":true},{"w":"ging","t0":52.169,"t1":52.614,"est":true},{"w":"ein","t0":52.614,"t1":52.969,"est":true},{"w":"Bild","t0":52.969,"t1":53.414,"est":true},{"w":"um","t0":53.414,"t1":53.681,"est":true},{"w":"die","t0":53.681,"t1":54.036,"est":true},{"w":"Welt:","t0":54.036,"t1":54.481,"est":true},{"w":"Papst","t0":54.481,"t1":55.014,"est":true},{"w":"Franziskus","t0":55.014,"t1":55.992,"est":true},{"w":"in","t0":55.992,"t1":56.259,"est":true},{"w":"einer","t0":56.259,"t1":56.793,"est":true},{"w":"weißen","t0":56.793,"t1":57.326,"est":true},{"w":"Daunenjacke.","t0":57.326,"t1":58.393,"est":true},{"w":"Millionen","t0":58.393,"t1":59.282,"est":true},{"w":"hielten","t0":59.282,"t1":59.994,"est":true},{"w":"es","t0":59.994,"t1":60.26,"est":true},{"w":"für","t0":60.26,"t1":60.527,"est":true},{"w":"echt.","t0":60.527,"t1":60.972,"est":true},{"w":"Es","t0":60.972,"t1":61.238,"est":true},{"w":"wurde","t0":61.238,"t1":61.772,"est":true},{"w":"mit","t0":61.772,"t1":62.128,"est":true},{"w":"einer","t0":62.128,"t1":62.661,"est":true},{"w":"KI","t0":62.661,"t1":62.928,"est":true},{"w":"erstellt.","t0":62.928,"t1":63.728,"est":true}]},{"id":"ex_pentagon","text":"Im Mai 2023 zeigte ein gefälschtes Bild eine Explosion am Pentagon in den USA. Für kurze Zeit fielen sogar die Kurse an der Börse.","t0":64.528,"t1":77.282,"words":[{"w":"Im","t0":64.528,"t1":64.832,"est":true},{"w":"Mai","t0":64.832,"t1":65.237,"est":true},{"w":"2023","t0":65.237,"t1":65.743,"est":true},{"w":"zeigte","t0":65.743,"t1":66.451,"est":true},{"w":"ein","t0":66.451,"t1":66.856,"est":true},{"w":"gefälschtes","t0":66.856,"t1":67.97,"est":true},{"w":"Bild","t0":67.97,"t1":68.476,"est":true},{"w":"eine","t0":68.476,"t1":68.982,"est":true},{"w":"Explosion","t0":68.982,"t1":69.994,"est":true},{"w":"am","t0":69.994,"t1":70.298,"est":true},{"w":"Pentagon","t0":70.298,"t1":71.209,"est":true},{"w":"in","t0":71.209,"t1":71.512,"est":true},{"w":"den","t0":71.512,"t1":71.917,"est":true},{"w":"USA.","t0":71.917,"t1":72.322,"est":true},{"w":"Für","t0":72.322,"t1":72.626,"est":true},{"w":"kurze","t0":72.626,"t1":73.233,"est":true},{"w":"Zeit","t0":73.233,"t1":73.739,"est":true},{"w":"fielen","t0":73.739,"t1":74.448,"est":true},{"w":"sogar","t0":74.448,"t1":75.055,"est":true},{"w":"die","t0":75.055,"t1":75.46,"est":true},{"w":"Kurse","t0":75.46,"t1":76.067,"est":true},{"w":"an","t0":76.067,"t1":76.371,"est":true},{"w":"der","t0":76.371,"t1":76.776,"est":true},{"w":"Börse.","t0":76.776,"t1":77.282,"est":true}]},{"id":"ex_selenskyj","text":"Und 2022 tauchte ein Deepfake-Video auf, in dem der ukrainische Präsident Selenskyj angeblich zur Kapitulation aufrief. Auch das war komplett gefälscht.","t0":78.082,"t1":91.015,"words":[{"w":"Und","t0":78.082,"t1":78.434,"est":true},{"w":"2022","t0":78.434,"t1":78.874,"est":true},{"w":"tauchte","t0":78.874,"t1":79.578,"est":true},{"w":"ein","t0":79.578,"t1":79.93,"est":true},{"w":"Deepfake-Video","t0":79.93,"t1":81.161,"est":true},{"w":"auf,","t0":81.161,"t1":81.513,"est":true},{"w":"in","t0":81.513,"t1":81.777,"est":true},{"w":"dem","t0":81.777,"t1":82.129,"est":true},{"w":"der","t0":82.129,"t1":82.481,"est":true},{"w":"ukrainische","t0":82.481,"t1":83.537,"est":true},{"w":"Präsident","t0":83.537,"t1":84.329,"est":true},{"w":"Selenskyj","t0":84.329,"t1":85.208,"est":true},{"w":"angeblich","t0":85.208,"t1":86.088,"est":true},{"w":"zur","t0":86.088,"t1":86.44,"est":true},{"w":"Kapitulation","t0":86.44,"t1":87.584,"est":true},{"w":"aufrief.","t0":87.584,"t1":88.288,"est":true},{"w":"Auch","t0":88.288,"t1":88.728,"est":true},{"w":"das","t0":88.728,"t1":89.079,"est":true},{"w":"war","t0":89.079,"t1":89.431,"est":true},{"w":"komplett","t0":89.431,"t1":90.223,"est":true},{"w":"gefälscht.","t0":90.223,"t1":91.015,"est":true}]},{"id":"old","text":"Ältere Menschen werden oft zum Ziel. Zum Beispiel mit Anrufen, bei denen eine KI die Stimme vom Enkel nachmacht.","t0":91.915,"t1":99.168,"words":[{"w":"Ältere","t0":91.915,"t1":92.314,"est":true},{"w":"Menschen","t0":92.314,"t1":92.913,"est":true},{"w":"werden","t0":92.913,"t1":93.379,"est":true},{"w":"oft","t0":93.379,"t1":93.645,"est":true},{"w":"zum","t0":93.645,"t1":93.911,"est":true},{"w":"Ziel.","t0":93.911,"t1":94.244,"est":true},{"w":"Zum","t0":94.244,"t1":94.51,"est":true},{"w":"Beispiel","t0":94.51,"t1":95.109,"est":true},{"w":"mit","t0":95.109,"t1":95.375,"est":true},{"w":"Anrufen,","t0":95.375,"t1":95.907,"est":true},{"w":"bei","t0":95.907,"t1":96.174,"est":true},{"w":"denen","t0":96.174,"t1":96.573,"est":true},{"w":"eine","t0":96.573,"t1":96.906,"est":true},{"w":"KI","t0":96.906,"t1":97.105,"est":true},{"w":"die","t0":97.105,"t1":97.371,"est":true},{"w":"Stimme","t0":97.371,"t1":97.837,"est":true},{"w":"vom","t0":97.837,"t1":98.103,"est":true},{"w":"Enkel","t0":98.103,"t1":98.503,"est":true},{"w":"nachmacht.","t0":98.503,"t1":99.168,"est":true}]},{"id":"young","text":"Aber auch Jugendliche fallen darauf rein. Wer schnell scrollt und sofort teilt, prüft selten nach.","t0":99.868,"t1":106.443,"words":[{"w":"Aber","t0":99.868,"t1":100.214,"est":true},{"w":"auch","t0":100.214,"t1":100.56,"est":true},{"w":"Jugendliche","t0":100.56,"t1":101.391,"est":true},{"w":"fallen","t0":101.391,"t1":101.875,"est":true},{"w":"darauf","t0":101.875,"t1":102.36,"est":true},{"w":"rein.","t0":102.36,"t1":102.706,"est":true},{"w":"Wer","t0":102.706,"t1":102.982,"est":true},{"w":"schnell","t0":102.982,"t1":103.536,"est":true},{"w":"scrollt","t0":103.536,"t1":104.09,"est":true},{"w":"und","t0":104.09,"t1":104.367,"est":true},{"w":"sofort","t0":104.367,"t1":104.851,"est":true},{"w":"teilt,","t0":104.851,"t1":105.266,"est":true},{"w":"prüft","t0":105.266,"t1":105.612,"est":true},{"w":"selten","t0":105.612,"t1":106.097,"est":true},{"w":"nach.","t0":106.097,"t1":106.443,"est":true}]},{"id":"effects","text":"Die Folge: Menschen streiten, verlieren Geld, und am Ende weiß man nicht mehr, wem man glauben soll.","t0":107.143,"t1":114.912,"words":[{"w":"Die","t0":107.143,"t1":107.47,"est":true},{"w":"Folge:","t0":107.47,"t1":107.961,"est":true},{"w":"Menschen","t0":107.961,"t1":108.697,"est":true},{"w":"streiten,","t0":108.697,"t1":109.433,"est":true},{"w":"verlieren","t0":109.433,"t1":110.251,"est":true},{"w":"Geld,","t0":110.251,"t1":110.659,"est":true},{"w":"und","t0":110.659,"t1":110.987,"est":true},{"w":"am","t0":110.987,"t1":111.232,"est":true},{"w":"Ende","t0":111.232,"t1":111.641,"est":true},{"w":"weiß","t0":111.641,"t1":111.968,"est":true},{"w":"man","t0":111.968,"t1":112.295,"est":true},{"w":"nicht","t0":112.295,"t1":112.786,"est":true},{"w":"mehr,","t0":112.786,"t1":113.195,"est":true},{"w":"wem","t0":113.195,"t1":113.522,"est":true},{"w":"man","t0":113.522,"t1":113.849,"est":true},{"w":"glauben","t0":113.849,"t1":114.503,"est":true},{"w":"soll.","t0":114.503,"t1":114.912,"est":true}]},{"id":"qa_intro","text":"Aber was kann man dagegen tun? Hier sind die wichtigsten Fragen und Antworten.","t0":115.812,"t1":120.813,"words":[{"w":"Aber","t0":115.812,"t1":116.137,"est":true},{"w":"was","t0":116.137,"t1":116.397,"est":true},{"w":"kann","t0":116.397,"t1":116.721,"est":true},{"w":"man","t0":116.721,"t1":116.981,"est":true},{"w":"dagegen","t0":116.981,"t1":117.501,"est":true},{"w":"tun?","t0":117.501,"t1":117.76,"est":true},{"w":"Hier","t0":117.76,"t1":118.085,"est":true},{"w":"sind","t0":118.085,"t1":118.41,"est":true},{"w":"die","t0":118.41,"t1":118.67,"est":true},{"w":"wichtigsten","t0":118.67,"t1":119.449,"est":true},{"w":"Fragen","t0":119.449,"t1":119.904,"est":true},{"w":"und","t0":119.904,"t1":120.164,"est":true},{"w":"Antworten.","t0":120.164,"t1":120.813,"est":true}]},{"id":"q1","text":"Wie erkenne ich ein Deepfake?","t0":121.513,"t1":123.121,"words":[{"w":"Wie","t0":121.513,"t1":121.735,"est":true},{"w":"erkenne","t0":121.735,"t1":122.178,"est":true},{"w":"ich","t0":122.178,"t1":122.4,"est":true},{"w":"ein","t0":122.4,"t1":122.622,"est":true},{"w":"Deepfake?","t0":122.622,"t1":123.121,"est":true}]},{"id":"a1","text":"Schau genau hin: Augen, Hände, Zähne und Ränder sehen bei KI-Bildern oft komisch aus. Und frag dich immer: Wer hat das zuerst gepostet?","t0":123.521,"t1":135.063,"words":[{"w":"Schau","t0":123.521,"t1":124.071,"est":true},{"w":"genau","t0":124.071,"t1":124.62,"est":true},{"w":"hin:","t0":124.62,"t1":124.987,"est":true},{"w":"Augen,","t0":124.987,"t1":125.536,"est":true},{"w":"Hände,","t0":125.536,"t1":125.994,"est":true},{"w":"Zähne","t0":125.994,"t1":126.452,"est":true},{"w":"und","t0":126.452,"t1":126.819,"est":true},{"w":"Ränder","t0":126.819,"t1":127.368,"est":true},{"w":"sehen","t0":127.368,"t1":127.918,"est":true},{"w":"bei","t0":127.918,"t1":128.284,"est":true},{"w":"KI-Bildern","t0":128.284,"t1":129.2,"est":true},{"w":"oft","t0":129.2,"t1":129.567,"est":true},{"w":"komisch","t0":129.567,"t1":130.3,"est":true},{"w":"aus.","t0":130.3,"t1":130.666,"est":true},{"w":"Und","t0":130.666,"t1":131.032,"est":true},{"w":"frag","t0":131.032,"t1":131.49,"est":true},{"w":"dich","t0":131.49,"t1":131.948,"est":true},{"w":"immer:","t0":131.948,"t1":132.498,"est":true},{"w":"Wer","t0":132.498,"t1":132.865,"est":true},{"w":"hat","t0":132.865,"t1":133.231,"est":true},{"w":"das","t0":133.231,"t1":133.597,"est":true},{"w":"zuerst","t0":133.597,"t1":134.239,"est":true},{"w":"gepostet?","t0":134.239,"t1":135.063,"est":true}]},{"id":"q2","text":"Wie können sich junge Leute schützen?","t0":135.963,"t1":138.055,"words":[{"w":"Wie","t0":135.963,"t1":136.202,"est":true},{"w":"können","t0":136.202,"t1":136.561,"est":true},{"w":"sich","t0":136.561,"t1":136.86,"est":true},{"w":"junge","t0":136.86,"t1":137.218,"est":true},{"w":"Leute","t0":137.218,"t1":137.577,"est":true},{"w":"schützen?","t0":137.577,"t1":138.055,"est":true}]},{"id":"a2","text":"Nicht sofort teilen. Prüf die Quelle, nutze die umgekehrte Bildersuche, und schau bei Faktencheckern wie Correctiv oder dem dpa-Faktencheck nach.","t0":138.455,"t1":148.812,"words":[{"w":"Nicht","t0":138.455,"t1":138.899,"est":true},{"w":"sofort","t0":138.899,"t1":139.417,"est":true},{"w":"teilen.","t0":139.417,"t1":139.935,"est":true},{"w":"Prüf","t0":139.935,"t1":140.23,"est":true},{"w":"die","t0":140.23,"t1":140.526,"est":true},{"w":"Quelle,","t0":140.526,"t1":141.044,"est":true},{"w":"nutze","t0":141.044,"t1":141.488,"est":true},{"w":"die","t0":141.488,"t1":141.784,"est":true},{"w":"umgekehrte","t0":141.784,"t1":142.598,"est":true},{"w":"Bildersuche,","t0":142.598,"t1":143.486,"est":true},{"w":"und","t0":143.486,"t1":143.781,"est":true},{"w":"schau","t0":143.781,"t1":144.225,"est":true},{"w":"bei","t0":144.225,"t1":144.521,"est":true},{"w":"Faktencheckern","t0":144.521,"t1":145.631,"est":true},{"w":"wie","t0":145.631,"t1":145.927,"est":true},{"w":"Correctiv","t0":145.927,"t1":146.667,"est":true},{"w":"oder","t0":146.667,"t1":147.037,"est":true},{"w":"dem","t0":147.037,"t1":147.332,"est":true},{"w":"dpa-Faktencheck","t0":147.332,"t1":148.442,"est":true},{"w":"nach.","t0":148.442,"t1":148.812,"est":true}]},{"id":"q3","text":"Und wie schützen wir ältere Menschen?","t0":149.712,"t1":151.679,"words":[{"w":"Und","t0":149.712,"t1":149.937,"est":true},{"w":"wie","t0":149.937,"t1":150.162,"est":true},{"w":"schützen","t0":150.162,"t1":150.611,"est":true},{"w":"wir","t0":150.611,"t1":150.836,"est":true},{"w":"ältere","t0":150.836,"t1":151.173,"est":true},{"w":"Menschen?","t0":151.173,"t1":151.679,"est":true}]},{"id":"a3","text":"Redet mit euren Großeltern darüber. Macht ein Familien-Codewort aus. Und wenn jemand am Telefon Geld will: auflegen und selbst zurückrufen.","t0":152.079,"t1":162.183,"words":[{"w":"Redet","t0":152.079,"t1":152.538,"est":true},{"w":"mit","t0":152.538,"t1":152.844,"est":true},{"w":"euren","t0":152.844,"t1":153.304,"est":true},{"w":"Großeltern","t0":153.304,"t1":154.069,"est":true},{"w":"darüber.","t0":154.069,"t1":154.605,"est":true},{"w":"Macht","t0":154.605,"t1":155.064,"est":true},{"w":"ein","t0":155.064,"t1":155.37,"est":true},{"w":"Familien-Codewort","t0":155.37,"t1":156.672,"est":true},{"w":"aus.","t0":156.672,"t1":156.978,"est":true},{"w":"Und","t0":156.978,"t1":157.284,"est":true},{"w":"wenn","t0":157.284,"t1":157.667,"est":true},{"w":"jemand","t0":157.667,"t1":158.203,"est":true},{"w":"am","t0":158.203,"t1":158.432,"est":true},{"w":"Telefon","t0":158.432,"t1":159.045,"est":true},{"w":"Geld","t0":159.045,"t1":159.427,"est":true},{"w":"will:","t0":159.427,"t1":159.81,"est":true},{"w":"auflegen","t0":159.81,"t1":160.499,"est":true},{"w":"und","t0":160.499,"t1":160.805,"est":true},{"w":"selbst","t0":160.805,"t1":161.341,"est":true},{"w":"zurückrufen.","t0":161.341,"t1":162.183,"est":true}]},{"id":"q4","text":"Was mache ich, wenn ich doch eine Fake News geteilt habe?","t0":163.083,"t1":166.149,"words":[{"w":"Was","t0":163.083,"t1":163.302,"est":true},{"w":"mache","t0":163.302,"t1":163.63,"est":true},{"w":"ich,","t0":163.63,"t1":163.849,"est":true},{"w":"wenn","t0":163.849,"t1":164.123,"est":true},{"w":"ich","t0":164.123,"t1":164.342,"est":true},{"w":"doch","t0":164.342,"t1":164.616,"est":true},{"w":"eine","t0":164.616,"t1":164.89,"est":true},{"w":"Fake","t0":164.89,"t1":165.163,"est":true},{"w":"News","t0":165.163,"t1":165.437,"est":true},{"w":"geteilt","t0":165.437,"t1":165.875,"est":true},{"w":"habe?","t0":165.875,"t1":166.149,"est":true}]},{"id":"a4","text":"Kein Problem, das passiert. Lösch den Beitrag, schreib eine Korrektur und sag den anderen Bescheid.","t0":166.549,"t1":173.045,"words":[{"w":"Kein","t0":166.549,"t1":166.891,"est":true},{"w":"Problem,","t0":166.891,"t1":167.438,"est":true},{"w":"das","t0":167.438,"t1":167.711,"est":true},{"w":"passiert.","t0":167.711,"t1":168.327,"est":true},{"w":"Lösch","t0":168.327,"t1":168.669,"est":true},{"w":"den","t0":168.669,"t1":168.942,"est":true},{"w":"Beitrag,","t0":168.942,"t1":169.489,"est":true},{"w":"schreib","t0":169.489,"t1":170.036,"est":true},{"w":"eine","t0":170.036,"t1":170.378,"est":true},{"w":"Korrektur","t0":170.378,"t1":171.062,"est":true},{"w":"und","t0":171.062,"t1":171.336,"est":true},{"w":"sag","t0":171.336,"t1":171.609,"est":true},{"w":"den","t0":171.609,"t1":171.883,"est":true},{"w":"anderen","t0":171.883,"t1":172.43,"est":true},{"w":"Bescheid.","t0":172.43,"t1":173.045,"est":true}]},{"id":"check","text":"Deshalb gilt: Erst prüfen, dann teilen! Wer sagt das? Gibt es eine Quelle? Berichten auch andere darüber?","t0":174.045,"t1":181.665,"words":[{"w":"Deshalb","t0":174.045,"t1":174.667,"est":true},{"w":"gilt:","t0":174.667,"t1":175.056,"est":true},{"w":"Erst","t0":175.056,"t1":175.445,"est":true},{"w":"prüfen,","t0":175.445,"t1":175.911,"est":true},{"w":"dann","t0":175.911,"t1":176.3,"est":true},{"w":"teilen!","t0":176.3,"t1":176.844,"est":true},{"w":"Wer","t0":176.844,"t1":177.155,"est":true},{"w":"sagt","t0":177.155,"t1":177.544,"est":true},{"w":"das?","t0":177.544,"t1":177.855,"est":true},{"w":"Gibt","t0":177.855,"t1":178.244,"est":true},{"w":"es","t0":178.244,"t1":178.477,"est":true},{"w":"eine","t0":178.477,"t1":178.866,"est":true},{"w":"Quelle?","t0":178.866,"t1":179.41,"est":true},{"w":"Berichten","t0":179.41,"t1":180.188,"est":true},{"w":"auch","t0":180.188,"t1":180.576,"est":true},{"w":"andere","t0":180.576,"t1":181.121,"est":true},{"w":"darüber?","t0":181.121,"t1":181.665,"est":true}]},{"id":"outro","text":"Denk nach, bevor du teilst. Bleib kritisch!","t0":182.465,"t1":185.159,"words":[{"w":"Denk","t0":182.465,"t1":182.794,"est":true},{"w":"nach,","t0":182.794,"t1":183.122,"est":true},{"w":"bevor","t0":183.122,"t1":183.516,"est":true},{"w":"du","t0":183.516,"t1":183.713,"est":true},{"w":"teilst.","t0":183.713,"t1":184.173,"est":true},{"w":"Bleib","t0":184.173,"t1":184.568,"est":true},{"w":"kritisch!","t0":184.568,"t1":185.159,"est":true}]}]};
 // =====================================================================
-//  SKETCHBOOK DEMO — 9:16, 6.0s @ 120 BPM, 24fps. A puzzled doodle gets an idea: a lightbulb is pencilled in,
-//  inked and scribbled yellow; the bulb becomes the sun over a sketched hill, and the hero waves from the top.
-//  Proves the style kit renders, morphs and stays deterministic.
-//  Build: node <skill>/tools/build.mjs <skill>/styles/sketchbook/demo
+//  FAKE NEWS & DEEPFAKES — 9:16 sketchbook explainer in German, timed to an ElevenLabs voice-over (VOICE).
 // =====================================================================
 const FPS = 24, W = 1080, H = 1920;
 const BPM = 120, BEAT = 60 / BPM, E8 = BEAT / 2, E16 = BEAT / 4;
-const DURATION = 30.0;
+const DURATION = VOICE.duration;
 const NFRAMES = Math.round(DURATION * FPS);
 const LOOP_T = NFRAMES / FPS;
 const SAFE = { top: 240, bottom: 420, right: 140 };
 const HAND = '"Ink Free", "Segoe Print", "Bradley Hand", "Comic Sans MS", "Chalkboard SE", cursive';
 const CX = 500;
-
-const ERA_LIST = [[0, 6, () => scenePhone()], [6, 12, () => sceneShare()], [12, 18, () => sceneDeep()], [18, 24, () => sceneAge()], [24, 30, () => sceneCheck()]];
-const SHOTS = [
-  ['handy', 0, 0, 6, 'jeden Tag: ein Handy voller Schlagzeilen'],
-  ['teilen', 1, 6, 12, 'eine Luege wird geteilt und geteilt'],
-  ['deepfake', 2, 12, 18, 'zwei gleiche Gesichter: eins ist KI'],
-  ['jungalt', 3, 18, 24, 'Jung und Alt fallen darauf rein'],
-  ['pruefen', 4, 24, 30, 'Lupe und Checkliste: erst pruefen, dann teilen'],
-];
+// eras follow the voice: each starts 0.3s before its first line
+const LT = (id) => VOICE.lines.find((l) => l.id === id);
+const ERA_IDS = ['intro', 'feed', 'fake', 'spread', 'ki', 'real', 'ex_intro', 'ex_pope', 'ex_pentagon', 'ex_selenskyj', 'old', 'young', 'effects', 'qa_intro', 'q1', 'q2', 'q3', 'q4', 'check', 'outro'];
+const ERA_T = [0, ...ERA_IDS.slice(1).map((id) => LT(id).t0 - 0.3), VOICE.duration];
+const ERA_FN = [() => sIntro(), () => sFeed(), () => sFake(), () => sSpread(), () => sKI(), () => sReal(), () => sExIntro(), () => sPope(), () => sPentagon(), () => sSelenskyj(), () => sOld(), () => sYoung(), () => sEffects(), () => sQAIntro(), () => sQA(0), () => sQA(1), () => sQA(2), () => sQA(3), () => sCheck(), () => sOutro()];
+const ERA_LIST = ERA_FN.map((f, i) => [ERA_T[i], ERA_T[i + 1], () => f()]);
+const SHOT_TITLES = ERA_IDS;
 const TIMELINE = {
   width: W, height: H, fps: FPS, bpm: BPM, duration: DURATION, frames: NFRAMES, loop: LOOP_T, safe: SAFE,
   format: 'morph-chain',
-  shots: SHOTS.map(([key, era, t0, t1, title], i) => ({ id: i + 1, key, era, t0, t1, title })),
+  shots: SHOT_TITLES.map((title, i) => ({ id: i + 1, key: 's' + i, era: i, t0: ERA_T[i], t1: ERA_T[i + 1], title })),
   cuts: [],
-  morphs: [6, 12, 18, 24],
-  cues: { phone: 0.5, head: 1.5, ping: 3.0, fake: 7.0, spread: 8.0, faces: 12.6, glitch: 14.5, ki: 15.5, young: 18.6, old: 19.4, fall: 21.5, lens: 24.5, c1: 25.5, c2: 26.5, c3: 27.5, hop: 28.5 },
+  morphs: ERA_T.slice(1, -1),
+  cues: {},
   acts: [
-    { name: '1 Handy', role: 'setup', t0: 0, t1: 6 },
-    { name: '2 Teilen', role: 'build', t0: 6, t1: 12 },
-    { name: '3 Deepfake', role: 'turn', t0: 12, t1: 18 },
-    { name: '4 Jung & Alt', role: 'build', t0: 18, t1: 24 },
-    { name: '5 Pruefen', role: 'payoff', t0: 24, t1: 30 },
+    { name: '1 Medien & Fakes', role: 'setup', t0: 0, t1: ERA_T[6] },
+    { name: '2 Echte Faelle', role: 'build', t0: ERA_T[6], t1: ERA_T[10] },
+    { name: '3 Wen es trifft', role: 'turn', t0: ERA_T[10], t1: ERA_T[13] },
+    { name: '4 Fragen & Antworten', role: 'build', t0: ERA_T[13], t1: ERA_T[18] },
+    { name: '5 Merke', role: 'payoff', t0: ERA_T[18], t1: DURATION },
   ],
-  board: [
-    { t: 4.5, title: 'Handy', sound: 'pencil', next: 'morph' },
-    { t: 10.5, title: 'Teilen', sound: 'blips', next: 'morph' },
-    { t: 16.5, title: 'Deepfake', sound: 'glitch', next: 'morph' },
-    { t: 22.5, title: 'Jung & Alt', sound: 'pad', next: 'morph' },
-    { t: 29, title: 'Pruefen', sound: 'chime', next: 'end' },
-  ],
-  narration: [],
+  board: ERA_T.slice(0, -1).map((t, i) => ({ t: Math.min(ERA_T[i + 1] - 0.6, t + 5.2), title: SHOT_TITLES[i], sound: '', next: '' })),
+  narration: VOICE.lines.map((l) => ({ t0: l.t0, t1: l.t1, text: l.text })),
 };
 window.TIMELINE = TIMELINE;
 // =====================================================================
@@ -1045,195 +1036,536 @@ const STYLE = {
   post() { grain({ n: 1800, dark: 'rgba(60,56,52,0.12)', light: 'rgba(255,253,245,0.16)' }); },
 };
 // =====================================================================
-//  SCENES — Fake News & Deepfakes (sketchbook). World 1080x1920; TT on 2s.
+//  SCENES — Fake News & Deepfakes (sketchbook, German). World 1080x1920; TT on 2s; E0 = era start.
 // =====================================================================
-const PH0 = sketchBox(370, 420, 340, 600, 40);   // era 0 phone
-const PH1 = sketchBox(400, 480, 280, 500, 36);   // era 1 phone
-const FR_L = sketchBox(110, 500, 350, 470, 22);  // era 2 left portrait
-const FR_R = sketchBox(540, 500, 350, 470, 22);  // era 2 right portrait
-const OLD = { x: 720, y: 790, r: 115 };
-const LENS = { x: 700, y: 600, r: 120 };
+const A = (x) => E0 + x;                 // a time inside the current era
+const W0 = (id) => LT(id).t0, W1 = (id) => LT(id).t1;
+const SKIN = '#f6dfc6';
+// ---- shared shapes (also the morph bridges)
+const PH_S = sketchBox(740, 820, 150, 250, 22);
+const PH = sketchBox(330, 420, 380, 660, 44);
+const NP = sketchBox(200, 440, 600, 680, 10);
+const CARD0 = sketchBox(438, 516, 124, 88, 8);
+const KB = sketchBox(110, 520, 330, 300, 24);
+const FACE_OV = loopPts(730, 660, 95, 120, 0, 0, 40);
+const FR_L = sketchBox(110, 500, 350, 470, 22);
+const FR_R = sketchBox(540, 500, 350, 470, 22);
+const CORK_M = sketchBox(380, 640, 240, 230, 6);
+const PF = sketchBox(190, 420, 620, 640, 14);
+const VID = sketchBox(90, 480, 820, 520, 18);
+const OLD = { x: 680, y: 780, r: 110 };
+const HERO_Y = { x: 500, y: 880, r: 110 };
+const GAUGE = { x: 500, y: 820, r: 230 };
+const QB = sketchBox(80, 400, 840, 200, 34);
+const QCARD = sketchBox(80, 660, 840, 560, 20);
+const CARD_L = sketchBox(110, 620, 680, 520, 18);
+const LENS = { x: 720, y: 560, r: 115 };
+const circ = (o, r) => loopPts(o.x, o.y, r ?? o.r, r ?? o.r, 0, 0, 40);
+const STAMPS = [];                         // absolute stamp times, for the score
+function stampAt(t) { if (!STAMPS.includes(t)) STAMPS.push(t); return t; }
 
-function bubble(x, y, w, h, tail, key, part) {      // a speech bubble, written on
-  const P = sketchBox(x - w / 2, y - h / 2, w, h, 30, 0);
-  gfill(P, SK.sheet, { off: [3, 3], key: key + 'f', a: clamp(part * 3) });
+// ---- helpers
+function bubble(x, y, w, h, tail, key, part, fill = SK.sheet) {
+  const P = sketchBox(x - w / 2, y - h / 2, w, h, Math.min(34, h / 2.5), 0);
+  if (part <= 0) return;
+  gfill(P, fill, { off: [3, 3], key: key + 'f', a: clamp(part * 3) });
   gline(P, { closed: true, w: 4, key: key + 'o', part });
-  gline([[x + tail[0] * 0.3, y + h / 2], [x + tail[0], y + h / 2 + tail[1]], [x + tail[0] * 0.55, y + h / 2]], { w: 4, key: key + 't', second: false, part: seg(part, 0.7, 1) });
+  if (tail) gline([[x + tail[0] * 0.3 - 18, y + h / 2 - 2], [x + tail[0], y + h / 2 + tail[1]], [x + tail[0] * 0.3 + 18, y + h / 2 - 2]], { w: 4, key: key + 't', second: false, part: seg(part, 0.6, 1) });
 }
-function face(cx, cy, s, key, o = {}) {              // a plain ink portrait face (not the hero)
+function penOn(P, t0, d) { if (TT >= t0 && TT < t0 + d + 0.08) { const tip = writeEnd(closeP(P), ev(t0, d)); pencilTool(tip[0], tip[1], -0.75 + 0.08 * Math.sin(B * 1.7), 1); } }
+function drawn(P, t0, d, key, o = {}) {      // pencil construction, then ink, then the pencil follows
+  const p = ev(t0, d);
+  if (p <= 0) return 0;
+  if (o.fill) gfill(P, o.fill, { key: key + 'f', a: clamp(p * 2), off: o.off ?? [4, 3] });
+  gpencil(P, { closed: true, key: key + 'c', w: 2.4, a: 0.6 * (1 - ev(t0 + d, 0.3)), part: p });
+  gline(P, { closed: true, key, w: o.w ?? 5, part: ev(t0 + d * 0.6, d * 0.5) });
+  if (o.pen !== false) penOn(P, t0, d);
+  return p;
+}
+function face(cx, cy, s, key, o = {}) {      // a plain ink portrait face (not the hero)
   const head = loopPts(cx, cy, 95 * s, 120 * s, 0.05);
-  gfill(head, '#f6dfc6', { key: key + 'sk', a: o.a ?? 1 });
-  gline(head, { w: 5, key: key + 'h', part: o.part ?? 1 });
-  gpencil([[cx - 100 * s, cy - 40 * s], [cx - 80 * s, cy - 120 * s], [cx, cy - 150 * s], [cx + 80 * s, cy - 120 * s], [cx + 100 * s, cy - 40 * s]], { key: key + 'hair', w: 4, a: 0.9, part: o.part ?? 1 });
-  ghatchHair(cx, cy, s, key);
-  for (const sx of [-1, 1]) { ctx.fillStyle = SK.ink; ctx.beginPath(); ctx.ellipse(cx + sx * 34 * s, cy - 10 * s, 9 * s, 12 * s, 0, 0, TAU); ctx.fill(); }
-  gline([[cx, cy], [cx - 8 * s, cy + 30 * s], [cx + 6 * s, cy + 34 * s]], { w: 3.5, key: key + 'n', second: false });
-  gline(arcPts(cx, cy + 40 * s, 36 * s, Math.PI * 0.2, Math.PI * 0.8, 8), { w: 4, key: key + 'm', second: false });
-  if (o.glasses) for (const sx of [-1, 1]) gline(loopPts(cx + sx * 34 * s, cy - 10 * s, 26 * s, 22 * s, 0.05), { w: 3.5, key: key + 'g' + sx });
-  if (o.glasses) gline([[cx - 8 * s, cy - 12 * s], [cx + 8 * s, cy - 12 * s]], { w: 3, key: key + 'gb', second: false });
-}
-function ghatchHair(cx, cy, s, key) {
-  const P = [[cx - 100 * s, cy - 40 * s], [cx - 80 * s, cy - 120 * s], [cx, cy - 150 * s], [cx + 80 * s, cy - 120 * s], [cx + 100 * s, cy - 40 * s], [cx, cy - 100 * s]];
-  ctx.save(); gclip(P); ghatch(cx - 110 * s, cy - 160 * s, cx + 110 * s, cy - 30 * s, { ang: -0.8, gap: 8, col: SK.graph, w: 2, a: 0.6, key: key + 'hh' }); ctx.restore();
-}
-function penOn(P, t0, d) { if (TT >= t0 && TT < t0 + d + 0.1) { const tip = writeEnd(closeP(P), ev(t0, d)); pencilTool(tip[0], tip[1], -0.75 + 0.08 * Math.sin(B * 1.7), 1); } }
-
-// ---- era 0: the phone full of headlines
-function scenePhone() {
-  const cu = TIMELINE.cues;
-  sketchPage({ grid: 'dots' });
-  [[110, 560, 0], [150, 860, 1]].forEach(([x, y, i]) => doodleStar(x, y, 22 + 6 * ((B + i) % 3 === 0), 'ms' + i, { w: 3.2 }));
-  const pd = ev(cu.phone, 0.8);
-  gfill(PH0, SK.sheet, { key: 'ph0f', a: clamp(pd * 2) });
-  gpencil(PH0, { closed: true, key: 'ph0c', w: 2.6, a: 0.7, part: pd });
-  gline(PH0, { closed: true, key: 'ph0', w: 6, part: ev(cu.phone + 0.6, 0.4) });
-  gline([[500, 450], [580, 450]], { w: 5, key: 'spk', second: false, part: ev(cu.phone + 1, 0.2) });
-  const hd = ev(cu.head, 0.5);
-  if (hd > 0) {
-    handLetter('SCHOCK!', 540, 560, 66, { face: 'marker', key: 'schock', reveal: hd });
-    gline(sketchBox(410, 600, 260, 170, 10), { w: 4, key: 'pic', part: ev(cu.head + 0.3, 0.3) });
-    graphiteScribble(540, 685, 200, 120, 'picsc');
-    for (let i = 0; i < 4; i++) gpencil([[410, 820 + i * 38], [410 + [250, 220, 240, 150][i], 820 + i * 38]], { key: 'ln' + i, w: 3, a: 0.8, part: ev(cu.head + 0.6 + i * 0.12, 0.15) });
+  gfill(head, o.skin ?? SKIN, { key: key + 'sk' });
+  if (o.hair !== false) {
+    const H = [[cx - 100 * s, cy - 30 * s], [cx - 85 * s, cy - 115 * s], [cx, cy - 150 * s], [cx + 85 * s, cy - 115 * s], [cx + 100 * s, cy - 30 * s], [cx + 40 * s, cy - 95 * s], [cx - 50 * s, cy - 90 * s]];
+    ctx.save(); gclip(H); ghatch(cx - 110 * s, cy - 160 * s, cx + 110 * s, cy - 20 * s, { ang: -0.8, gap: 7, col: o.hairCol ?? SK.ink, w: 2.2, a: 0.7, key: key + 'hh' }); ctx.restore();
+    gline(H, { w: 3.5, key: key + 'hr', closed: true, amp: 1 });
   }
-  penOn(PH0, cu.phone, 0.8);
-  const pg = ev(cu.ping, 0.2);
-  if (pg > 0) { bubble(780, 380, 260, 100, [-60, 40], 'b0', pg); handLetter('Eilmeldung', 780, 398, 44, { key: 'eil', reveal: ev(cu.ping + 0.1, 0.3) }); }
-  const hop = Math.sin(Math.PI * ev(cu.ping, 0.25)), wow = TT >= cu.ping;
-  doodleHero(210, 1110 - 40 * hop, 80, { key: 'hero', legs: true, mood: wow ? 'wow' : 'calm', look: [1, -0.6], arms: [-0.6, 0.6] });
-  if (wow) handLetter('!', 290, 980 - 20 * hop, 90, { face: 'marker', key: 'bang0', reveal: ev(cu.ping, 0.08) });
-  pageTag('Medien');
-  pageCaption(['Jeden Tag', 'tausend News'], [[1, 'News']]);
+  gline(head, { w: 5, key: key + 'h' });
+  for (const sx of [-1, 1]) { ctx.fillStyle = SK.ink; ctx.beginPath(); ctx.ellipse(cx + sx * 34 * s, cy - 6 * s, 9 * s, (o.wow ? 15 : 12) * s, 0, 0, TAU); ctx.fill(); }
+  gline([[cx, cy + 2 * s], [cx - 9 * s, cy + 32 * s], [cx + 6 * s, cy + 36 * s]], { w: 3.5, key: key + 'n', second: false });
+  if (o.wow) { ctx.fillStyle = SK.ink; ctx.beginPath(); ctx.ellipse(cx, cy + 66 * s, 13 * s, 17 * s, 0, 0, TAU); ctx.fill(); }
+  else gline(arcPts(cx, cy + 40 * s, 36 * s, Math.PI * 0.2, Math.PI * 0.8, 8), { w: 4, key: key + 'm', second: false });
+  if (o.glasses) { for (const sx of [-1, 1]) gline(loopPts(cx + sx * 34 * s, cy - 6 * s, 27 * s, 23 * s, 0.05), { w: 3.5, key: key + 'g' + sx }); gline([[cx - 8 * s, cy - 8 * s], [cx + 8 * s, cy - 8 * s]], { w: 3, key: key + 'gb', second: false }); }
+}
+function oldie(x, y, s, key, o = {}) {        // an older person: white hair, glasses, cardigan
+  const body = [[x - 95 * s, y + 330 * s], [x - 75 * s, y + 140 * s], [x + 75 * s, y + 140 * s], [x + 95 * s, y + 330 * s]];
+  gfill(body, '#cfd8dc', { key: key + 'bf' }); gline(body, { w: 5, key: key + 'b' });
+  for (let i = 0; i < 3; i++) { ctx.fillStyle = SK.ink; ctx.beginPath(); ctx.arc(x, y + (180 + i * 45) * s, 5 * s, 0, TAU); ctx.fill(); }
+  face(x, y, s * 1.05, key, { glasses: true, hairCol: SK.graphL ?? '#9a948b', wow: o.wow });
+}
+function girl(x, y, s, key, o = {}) {         // the questioner: an ink doodle girl with a ponytail
+  gline([[x + 70 * s, y - 70 * s], [x + 120 * s, y - 40 * s + 8 * Math.sin(B)], [x + 110 * s, y + 10 * s]], { w: 6, key: key + 'pt', second: false });
+  face(x, y, s, key, { hairCol: SK.ink, wow: o.wow });
+}
+function stamp(str, x, y, s, rot, t, key) { const k = ev(stampAt(t), 0.15); if (k > 0) inkStamp(str, x, y, s * (1.4 - 0.4 * k), rot, k, key); }
+function phoneIcon(x, y, w, h, key, o = {}) {
+  const P = sketchBox(x - w / 2, y - h / 2, w, h, Math.min(w, h) * 0.14);
+  gfill(P, o.fill ?? SK.sheet, { key: key + 'f', off: [0, 0] }); gline(P, { w: o.w ?? 4, key });
+  gline([[x - w * 0.15, y - h / 2 + h * 0.06], [x + w * 0.15, y - h / 2 + h * 0.06]], { w: 3, key: key + 's', second: false });
+}
+function heart(x, y, s, key, col = SK.red) {
+  const P = []; for (let i = 0; i <= 24; i++) { const t = i / 24 * TAU; P.push([x + s * 16 * Math.pow(Math.sin(t), 3) / 16, y - s * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) / 16]); }
+  gfill(P, col, { key: key + 'f', off: [2, 2] }); gline(P, { w: 3, key, closed: true });
+}
+function margins(key) { [[90, 560, 0], [120, 1180, 1], [950, 1250, 2]].forEach(([x, y, i]) => doodleStar(x, y, 18 + 5 * ((B + i) % 3 === 0), key + i, { w: 3 })); }
+function textLines(x, y, ws, gap, key, t0) { ws.forEach((w, i) => gpencil([[x, y + i * gap], [x + w, y + i * gap]], { key: key + i, w: 3, a: 0.8, part: t0 == null ? 1 : ev(t0 + i * 0.12, 0.15) })); }
+function caption2(a, b, tSwap, hiA, hiB) { if (TT < tSwap) pageCaption(a, hiA); else pageCaption(b, hiB, { at: tSwap - E0 + 0.1 }); }
+
+// ================= 1 INTRO =================
+function sIntro() {
+  sketchPage({ grid: 'dots' }); margins('m0');
+  const r = ev(A(0.4), 1.4);
+  if (r > 0) {
+    const [x0, x1] = handLetter('Echt oder', CX, 560, 120, { face: 'marker', reveal: ev(A(0.4), 0.7), key: 't1' });
+    const [y0, y1] = handLetter('Fake?', CX, 700, 150, { face: 'marker', col: SK.ink, reveal: ev(A(1.0), 0.7), key: 't2' });
+    highlight(y0 + 10, y1 - 40, 670, 70, ev(A(1.8), 0.3), { key: 'thl' });
+    underline(y0, y1, 730, { col: SK.red, w: 6, key: 'tu', part: ev(A(2.1), 0.3) });
+    if (TT < A(1.9)) pencilTool(lerp(x0, y1, r), TT < A(1.0) ? 560 : 700, -0.75, 1);
+  }
+  // a newspaper and a phone written on either side
+  const np = sketchBox(110, 830, 200, 250, 6);
+  if (drawn(np, A(2.6), 0.6, 'inp', { fill: SK.sheet })) { handLetter('NEWS', 210, 885, 44, { face: 'marker', key: 'inpt' }); textLines(135, 920, [150, 130, 150, 90], 30, 'inpl'); }
+  if (drawn(PH_S, A(3.3), 0.6, 'iph', { fill: SK.sheet })) { graphiteScribble(815, 920, 100, 80, 'iphs'); textLines(760, 990, [110, 80], 28, 'iphl'); }
+  const wow = TT >= A(4.2), hop = Math.sin(Math.PI * ev(A(4.2), 0.3));
+  doodleHero(CX, 1020 - 40 * hop, 95, { key: 'hero', legs: true, mood: wow ? 'wow' : 'puzzled', look: [wow ? 0.8 : -0.8, -0.5], arms: wow ? [1.2, 1.2] : [-0.9, 0.9] });
+  if (!wow) handLetter('?', CX + 90, 890 + 6 * Math.sin(B * 0.9), 90, { col: SK.graph, key: 'iq', jit: 1.5 });
+  pageTag('Thema');
+  pageCaption(['Medien, KI', 'und die Wahrheit'], [[1, 'Wahrheit']], { at: 2.4 });
 }
 
-// ---- era 1: a lie gets shared
-const CARDS = [[150, 470, -0.15], [860, 560, 0.12], [130, 820, 0.1], [870, 900, -0.1], [190, 1150, -0.08], [820, 1170, 0.14]];
-function sceneShare() {
-  const cu = TIMELINE.cues;
-  sketchPage({ grid: 'dots' });
-  gfill(PH1, SK.sheet, { key: 'ph1f' });
-  gline(PH1, { closed: true, key: 'ph1', w: 6 });
-  handLetter('SCHOCK!', 540, 600, 56, { face: 'marker', key: 'schock1' });
-  graphiteScribble(540, 720, 180, 110, 'picsc1');
-  for (let i = 0; i < 3; i++) gpencil([[440, 830 + i * 36], [440 + [200, 170, 120][i], 830 + i * 36]], { key: 'l1' + i, w: 3, a: 0.8 });
-  CARDS.forEach(([x, y, r], i) => {
-    const t0 = cu.spread + i * E8 * 1.5, k = ev(t0, 0.35);
-    if (k <= 0) return;
-    const sx = x < 540 ? 400 : 680, sy = clamp(y, 520, 940);
-    arrowPencil([[sx, sy], [lerp(sx, x, 0.5), lerp(sy, y, 0.5) - 30], [x + (x < 540 ? 70 : -70), y]], k, { key: 'ar' + i });
-    if (k > 0.7) noteCard(x, y, r, 0.85, ev(t0 + 0.25, 0.3), 'nc' + i, SK.graph);
-  });
-  const fk = ev(cu.fake, 0.15);
-  if (fk > 0) inkStamp('FAKE', 540, 700, 0.75 * (1.4 - 0.4 * fk), -0.2, fk, 'fake');
-  const sh = TT > cu.spread ? 1 : 0;
-  doodleHero(500, 1150, 70, { key: 'hero', legs: true, mood: sh ? 'puzzled' : 'calm', look: [0, -1], arms: [-0.9, 0.9] });
-  if (sh) for (let i = 0; i < 2; i++) sweat(420 - i * 14, 1090 + i * 8, ((TT * 1.3 + i * 0.5) % 1), 'sw' + i);
+// ================= 2 FEED =================
+const FEED = [['Promi-Skandal!', 1], ['Wunder-Diät', 0], ['Alien gesichtet?', 1], ['Wetter: Sonne', 0], ['Krasses Video', 1], ['Neue Studie', 0]];
+function sFeed() {
+  sketchPage({ grid: 'dots' }); margins('m1');
+  gfill(PH, SK.sheet, { key: 'phf' }); gline(PH, { closed: true, key: 'ph', w: 6 });
+  gline([[490, 445], [550, 445]], { w: 5, key: 'phs', second: false });
+  ctx.save(); gclip(sketchBox(345, 470, 350, 580, 20));
+  const sc = 120 * Math.max(0, TT - A(0.8)), N = FEED.length, step = 200;
+  for (let i = 0; i < N; i++) {
+    const y = 480 + (((i * step - sc) % (N * step)) + N * step) % (N * step) - step * 0.5;
+    if (y < 360 || y > 1100) continue;
+    const [t, big] = FEED[i];
+    gline(sketchBox(365, y, 310, 180, 12), { w: 3.5, key: 'fc' + i });
+    graphiteScribble(425, y + 70, 80, 90, 'fcs' + i);
+    handLetter(t, 480, y + 50, 34, { align: 'left', key: 'fct' + i, face: big ? 'marker' : 'hand' });
+    textLines(480, y + 90, [160, 120], 28, 'fcl' + i);
+    heart(640, y + 150, 1.8, 'fh' + i, i % 2 ? SK.red : SK.graphL ?? '#9a948b');
+  }
+  ctx.restore();
+  const bd = ev(A(2), 0.2);
+  if (bd > 0) { gfill(loopPts(705, 425, 46, 40, 0), SK.red, { key: 'bdg', off: [0, 0], a: bd }); handLetter('99+', 705, 440, 40, { face: 'marker', col: SK.sheet, key: 'bdt', reveal: bd }); }
+  const lk = [-0.3, 0.3][(B >> 3) % 2];
+  doodleHero(840, 1150, 70, { key: 'hero', legs: true, mood: 'calm', look: [-1, -0.8 + lk * 0.2], arms: [-0.6, 0.9] });
+  pageTag('Alltag');
+  pageCaption(['Jeden Tag:', 'tausende Posts'], [[1, 'tausende']], { at: 1.0 });
+}
+
+// ================= 3 FAKE NEWS =================
+function sFake() {
+  sketchPage({ grid: 'dots' }); margins('m2');
+  gfill(NP, '#fbf6ea', { key: 'npf' }); gline(NP, { closed: true, key: 'np', w: 6 });
+  handLetter('DIE NEWS', CX, 520, 62, { face: 'marker', key: 'npm' });
+  gline([[230, 545], [770, 545]], { w: 4, key: 'npr', second: false }); gline([[230, 555], [770, 555]], { w: 2, key: 'npr2', second: false });
+  handLetter('SCHOCK!', CX, 650, 100, { face: 'marker', key: 'nph', reveal: ev(A(0.4), 0.5) });
+  handLetter('Schule für immer zu?', CX, 720, 50, { key: 'nps', reveal: ev(A(0.9), 0.5) });
+  if (drawn(sketchBox(240, 760, 250, 200, 4), A(1.3), 0.5, 'npp', { pen: false })) graphiteScribble(365, 860, 200, 160, 'nppi');
+  textLines(520, 780, [240, 220, 240, 180, 230, 150], 32, 'npl', A(1.5));
+  textLines(240, 1000, [520, 480, 500], 32, 'npl2', A(1.9));
+  stamp('FAKE', 520, 880, 0.9, -0.18, A(3.4), 'fk');
+  const n1 = ev(A(4.4), 0.5), n2 = ev(A(5.2), 0.5);
+  if (n1 > 0) { arrowPencil([[150, 470], [180, 560], [230, 620]], n1, { key: 'na1' }); handLetter('Quelle?', 140, 440, 46, { col: SK.graph, key: 'nt1', reveal: n1 }); }
+  if (n2 > 0) { arrowPencil([[880, 1180], [840, 1150], [790, 1110]], n2, { key: 'na2' }); handLetter('Autor?', 860, 1230, 46, { col: SK.graph, key: 'nt2', reveal: n2 }); }
   pageTag('Fake News');
-  pageCaption(['Lügen teilen sich', 'schneller'], [[1, 'schneller']]);
+  pageCaption(['Erfunden, aber', 'sieht echt aus'], [[0, 'Erfunden']], { at: 1.2 });
 }
 
-// ---- era 2: real or AI?
-function sceneDeep() {
-  const cu = TIMELINE.cues;
+// ================= 4 SPREAD =================
+function treePos() {
+  const L = [[[500, 560]]], xs = (n, y) => Array.from({ length: n }, (_, i) => [lerp(170, 830, n === 1 ? 0.5 : i / (n - 1)), y]);
+  L.push(xs(2, 760), xs(4, 940), xs(8, 1110)); return L;
+}
+function sSpread() {
+  sketchPage({ grid: 'dots' });
+  const L = treePos(), sc = [1, 0.8, 0.62, 0.42];
+  for (let l = 1; l < 4; l++) {
+    const t0 = A(0.8 + (l - 1) * 1.3);
+    L[l].forEach(([x, y], i) => {
+      const [px, py] = L[l - 1][i >> 1], k = ev(t0 + i * 0.06, 0.45);
+      if (k <= 0) return;
+      arrowPencil([[px, py + 40 * sc[l - 1]], [lerp(px, x, 0.5), lerp(py, y, 0.5) - 10], [x, y - 44 * sc[l]]], k, { key: 'sa' + l + i });
+      if (k > 0.6) noteCard(x, y, ((i % 3) - 1) * 0.1, sc[l], 1, 'sc' + l + i, SK.red);
+    });
+  }
+  noteCard(500, 560, -0.04, 1, 1, 'sc0', SK.red);
+  const n = Math.floor(Math.pow(10, 6 * EZ.i2(seg(TT, A(0.8), A(5.0)))));
+  handLetter('geteilt:', 780, 440, 44, { col: SK.graph, key: 'gt' });
+  handLetter(n.toLocaleString('de-DE'), 780, 500, 56, { face: 'marker', key: 'gn' + (B % 2) });
+  const sw = TT > A(3);
+  doodleHero(170, 520, 60, { key: 'hero', mood: sw ? 'wow' : 'calm', look: [1, 0.3], arms: [-0.8, 0.8] });
+  if (sw) for (let i = 0; i < 2; i++) sweat(110 - i * 12, 480 + i * 8, ((TT * 1.3 + i * 0.5) % 1), 'sw' + i);
+  pageTag('Teilen');
+  pageCaption(['Lügen verbreiten', 'sich schneller'], [[1, 'schneller']], { at: 0.8 });
+}
+
+// ================= 5 KI =================
+function sKI() {
+  sketchPage({ grid: 'dots' }); margins('m4');
+  gfill(KB, '#e7e2d6', { key: 'kbf' }); gline(KB, { closed: true, key: 'kb', w: 6 });
+  handLetter('KI', 275, 640, 110, { face: 'marker', key: 'kbt' });
+  for (let i = 0; i < 4; i++) { const on = (B + i) % 4 === 0; gfill(loopPts(170 + i * 50, 760, 12, 12, 0), on ? SK.hilite : '#ffffff', { key: 'kl' + i, off: [0, 0] }); gline(loopPts(170 + i * 50, 760, 12, 12, 0.05), { w: 3, key: 'klo' + i }); }
+  gline([[275, 520], [275, 470]], { w: 4, key: 'ant', second: false }); doodleStar(275, 455, 18 + 4 * (B % 2), 'antst', { w: 3 });
+  const outs = [['Bild', 660, A(1.2)], ['Video', 920, A(2.8)], ['Stimme', 1130, A(4.2)]];
+  outs.forEach(([lab, y, t], i) => { const k = ev(t, 0.5); if (k > 0) arrowPencil([[450, 680 + i * 40], [520, y - 30], [580, y]], k, { key: 'ko' + i }); });
+  const f = ev(A(1.6), 1.0);
+  if (f > 0) {   // a face assembled from a graphite mesh, then inked
+    ctx.save(); gclip(FACE_OV); for (let i = 0; i < 9; i++) gpencil([[620, 540 + i * 30], [840, 540 + i * 30]], { key: 'mh' + i, w: 1.6, a: 0.5 * (1 - seg(f, 0.6, 1)), passes: 1 }); ctx.restore();
+    if (f > 0.5) face(730, 660, 0.85, 'kif');
+    handLetter('Bild', 870, 560, 44, { col: SK.graph, key: 'kl1' });
+  }
+  if (TT >= A(3.0)) {   // a film strip
+    const fs = sketchBox(610, 870, 260, 110, 6); gfill(fs, '#3a332d', { key: 'fsf', off: [0, 0] });
+    for (let i = 0; i < 3; i++) { gfill(sketchBox(630 + i * 80, 895, 60, 60, 4), '#fffdf6', { key: 'fw' + i, off: [0, 0] }); face(660 + i * 80, 925, 0.18, 'ff' + i, { hair: false }); }
+    handLetter('Video', 870, 860, 44, { col: SK.graph, key: 'kl2' });
+  }
+  if (TT >= A(4.4)) {   // a voice wave
+    const P = []; for (let i = 0; i <= 60; i++) { const x = 600 + i * 5; P.push([x, 1130 + Math.sin(i * 0.7 + B * 0.9) * 40 * Math.sin(i / 60 * Math.PI)]); }
+    gline(P, { w: 4, key: 'wav', amp: 0.5, second: false }); handLetter('Stimme', 870, 1080, 44, { col: SK.graph, key: 'kl3' });
+  }
+  doodleHero(260, 1040, 62, { key: 'hero', mood: TT > A(4.4) ? 'wow' : 'puzzled', look: [1, -0.5], arms: [-0.8, 0.8], legs: true });
+  pageTag('Deepfakes');
+  pageCaption(['KI fälscht Bilder,', 'Videos und Stimmen'], [[0, 'KI']], { at: 1.0 });
+}
+
+// ================= 6 REAL OR AI =================
+function sReal() {
   sketchPage({ grid: 'dots' });
   for (const [P, k] of [[FR_L, 'frl'], [FR_R, 'frr']]) { gfill(P, '#fffdf6', { key: k + 'f' }); gline(P, { closed: true, key: k, w: 5 }); }
-  const fp = ev(cu.faces, 0.8);
-  if (fp > 0) {
-    face(285, 740, 1, 'fl', { part: fp, a: clamp(fp * 2) });
-    // the right face: the same face, but on the glitch its slices slip
-    const g = TT >= cu.glitch ? 1 : 0;
-    ctx.save(); gclip(FR_R);
-    for (let i = 0; i < 8; i++) {
-      const y0 = 510 + i * 58, dx = g ? ((hash('gl' + i + B) % 3) - 1) * 18 : 0;
-      ctx.save(); ctx.beginPath(); ctx.rect(540, y0, 350, 58); ctx.clip(); ctx.translate(dx, 0);
-      face(715, 740, 1, 'fr', { part: fp, a: clamp(fp * 2) });
-      ctx.restore();
-    }
-    if (g) for (let i = 0; i < 5; i++) gpencil([[560, 560 + ((hash('gs' + i + B) % 400))], [870, 560 + ((hash('gs' + i + B) % 400))]], { key: 'gsl' + i, w: 2, a: 0.5, passes: 1 });
+  face(285, 740, 1, 'fl');
+  const g = TT >= A(2.6) ? 1 : 0;
+  ctx.save(); gclip(FR_R);
+  for (let i = 0; i < 8; i++) {
+    const y0 = 510 + i * 58, dx = g ? ((hash('gl' + i + B) % 3) - 1) * 16 : 0;
+    ctx.save(); ctx.beginPath(); ctx.rect(540, y0, 350, 58); ctx.clip(); ctx.translate(dx, 0); face(715, 740, 1, 'fl'); ctx.restore();
+  }
+  if (g) for (let i = 0; i < 4; i++) { const yy = 560 + (hash('gs' + i + B) % 380); gpencil([[560, yy], [870, yy]], { key: 'gsl' + i, w: 2, a: 0.5, passes: 1 }); }
+  ctx.restore();
+  handLetter('echt?', 285, 1040, 56, { key: 'el', reveal: ev(A(0.5), 0.3) });
+  if (TT < A(3.6)) handLetter('echt?', 715, 1040, 56, { key: 'er', reveal: ev(A(0.7), 0.3) });
+  stamp('KI', 715, 1035, 0.55, 0.12, A(3.6), 'kis');
+  checkMark(285, 1110, 0.9, ev(A(4.0), 0.2));
+  doodleHero(500, 1190, 56, { key: 'hero', legs: true, mood: TT >= A(3.6) ? 'wow' : 'puzzled', look: [TT >= A(3.6) ? 1 : -1, -0.6], arms: [-0.9, 0.9] });
+  pageTag('Echt?');
+  pageCaption(['Echt oder KI?', 'Kaum zu erkennen'], [[0, 'KI']], { at: 0.6 });
+}
+
+// ================= 7 EXAMPLES INTRO =================
+const CORK = [[200, 760, -0.08, '2023'], [500, 755, 0.03, '2023'], [800, 770, 0.07, '2022']];
+function sExIntro() {
+  sketchPage({ grid: 'plain' });
+  handLetter('Echte Fälle', CX, 520, 110, { face: 'marker', key: 'eft', reveal: ev(A(0.3), 0.6) });
+  underline(260, 740, 560, { col: SK.red, w: 6, key: 'efu', part: ev(A(0.9), 0.3) });
+  CORK.forEach(([x, y, r, yr], i) => {
+    const k = ev(A(1.4 + i * 0.6), 0.3); if (k <= 0) return;
+    ctx.save(); ctx.translate(x, y + 30 * (1 - k)); ctx.rotate(r); ctx.globalAlpha *= k;
+    const P = sketchBox(-120, -115, 240, 230, 6); gfill(P, '#fffdf6', { key: 'cf' + i, off: [6, 6] }); gline(P, { closed: true, w: 4, key: 'co' + i });
+    graphiteScribble(0, -20, 180, 140, 'cs' + i);
+    handLetter('?', 0, 20, 110, { face: 'marker', col: SK.ink, key: 'cq' + i });
+    handLetter(yr, 0, 100, 44, { key: 'cy' + i });
+    ctx.restore(); tapeStrip(x, y - 115, 120, r * 2, 'ct' + i);
+  });
+  doodleHero(CX, 1150, 70, { key: 'hero', legs: true, mood: 'calm', look: [0, -1], arms: [-0.6, 0.6] });
+  pageTag('Beispiele');
+  pageCaption(['Das ist schon', 'oft passiert'], [[1, 'passiert']], { at: 0.6 });
+}
+
+// ================= 8 POPE =================
+function puffer(x, y, s, key) {   // a figure in a long white puffer coat, small white cap
+  const segs = 6;
+  for (let i = 0; i < segs; i++) {
+    const w = (150 + i * 14) * s, yy = y + 120 * s + i * 62 * s;
+    const P = sketchBox(x - w / 2, yy, w, 66 * s, 30 * s, 0);
+    gfill(P, '#ffffff', { key: key + 'pf' + i, off: [3, 3] });
+    ctx.save(); gclip(P); ghatch(x - w / 2, yy + 40 * s, x + w / 2, yy + 66 * s, { ang: -0.6, gap: 7, col: SK.graph, w: 1.6, a: 0.4, key: key + 'ph' + i }); ctx.restore();
+    gline(P, { w: 3.5, key: key + 'po' + i, closed: true });
+  }
+  gline([[x, y + 125 * s], [x, y + 470 * s]], { w: 3, key: key + 'zip', second: false });
+  gline([[x - 10 * s, y + 160 * s], [x, y + 230 * s], [x + 10 * s, y + 160 * s]], { w: 3, key: key + 'ch', second: false, col: '#c9a227' });
+  gline([[x - 14 * s, y + 225 * s], [x + 14 * s, y + 225 * s]], { w: 4, key: key + 'cx', second: false, col: '#c9a227' });
+  face(x, y, s * 0.85, key + 'fc', { hair: false, glasses: true });
+  const cap = [...arcPts(x, y - 70 * s, 55 * s, Math.PI * 1.1, Math.PI * 1.9, 10)]; gfill(closeP(cap), '#ffffff', { key: key + 'cap', off: [0, 0] }); gline(closeP(cap), { w: 3.5, key: key + 'capo' });
+}
+function sPope() {
+  sketchPage({ grid: 'dots' }); margins('m7');
+  const t0 = W0('ex_pope');
+  gfill(PF, '#fffdf6', { key: 'pff', off: [8, 8] }); gline(PF, { closed: true, key: 'pf', w: 5 });
+  ctx.save(); gclip(sketchBox(220, 450, 560, 520, 6)); ghatch(220, 450, 780, 970, { ang: 0.5, gap: 16, col: SK.graph, w: 1.6, a: 0.25, key: 'pbg' });
+  puffer(CX, 560, 0.95, 'pope'); ctx.restore();
+  gline(sketchBox(220, 450, 560, 520, 6), { w: 3, key: 'pfi' });
+  handLetter('März 2023', CX, 1030, 50, { key: 'pd', reveal: ev(t0 + 0.6, 0.4) });
+  const likes = Math.floor(Math.pow(10, 6 * EZ.i2(seg(TT, t0 + 3.5, t0 + 6.5))));
+  if (TT > t0 + 3.5) { heart(170, 540, 3.2, 'ph'); handLetter(likes.toLocaleString('de-DE'), 170, 640, 40, { face: 'marker', key: 'pl' + (B % 2) }); }
+  stamp('KI-BILD', CX, 760, 0.7, -0.15, t0 + 8.6, 'pk');
+  const fooled = TT > t0 + 3.5 && TT < t0 + 8.6;
+  doodleHero(860, 1170, 58, { key: 'hero', legs: true, mood: TT >= t0 + 8.6 ? 'wow' : fooled ? 'happy' : 'calm', look: [-1, -0.8], arms: fooled ? [1.1, 1.1] : [-0.6, 0.6] });
+  pageTag('Beispiel 1');
+  caption2(['Papst in Daunenjacke?', 'Ging um die Welt'], ['Das Bild war', 'mit KI gemacht'], t0 + 8.2, [[1, 'Welt']], [[1, 'KI']]);
+}
+
+// ================= 9 PENTAGON =================
+function sPentagon() {
+  sketchPage({ grid: 'dots' }); margins('m8');
+  const t0 = W0('ex_pentagon');
+  gfill(PF, '#fffdf6', { key: 'tff', off: [8, 8] }); gline(PF, { closed: true, key: 'pf', w: 5 });
+  // a pentagon building in perspective, smoke rising
+  const cx = 500, cy = 830, P5 = []; for (let i = 0; i < 5; i++) { const a = -Math.PI / 2 + i * TAU / 5; P5.push([cx + Math.cos(a) * 200, cy + Math.sin(a) * 90]); }
+  const P5i = P5.map(([x, y]) => [lerp(cx, x, 0.5), lerp(cy, y, 0.5)]);
+  gfill(closeP(P5), '#e9e3d4', { key: 'p5f', off: [0, 0] }); gline(closeP(P5), { w: 5, key: 'p5' }); gline(closeP(P5i), { w: 3.5, key: 'p5i' });
+  for (let i = 0; i < 5; i++) gpencil([P5[i], P5i[i]], { key: 'p5r' + i, w: 2, a: 0.7 });
+  const sm = ev(t0 + 0.8, 2.0);
+  if (sm > 0) for (let i = 0; i < 6; i++) {
+    const r = 40 + i * 14, x = 640 + i * 18 + 6 * Math.sin(B * 0.7 + i), y = 760 - i * 55 * sm;
+    gfill(loopPts(x, y, r, r * 0.8, 0), '#4a433d', { key: 'smk' + i, off: [0, 0], a: 0.85 * sm });
+    gline(loopPts(x, y, r, r * 0.8, 0.05), { w: 3, key: 'smo' + i });
+  }
+  const br = ev(t0 + 0.3, 0.3);
+  if (br > 0) { gfill(sketchBox(210, 460, 360, 70, 8), SK.red, { key: 'bn', off: [0, 0], a: br }); handLetter('EILMELDUNG', 390, 510, 46, { face: 'marker', col: SK.sheet, key: 'bnt', reveal: br }); }
+  handLetter('Mai 2023', CX, 1030, 50, { key: 'td', reveal: ev(t0 + 0.6, 0.4) });
+  const ch = ev(t0 + 6.0, 0.4);   // the stock chart dips and recovers
+  if (ch > 0) {
+    const bx = 640, by = 1100, P = sketchBox(bx, by, 260, 170, 10); gfill(P, '#fffdf6', { key: 'chf' }); gline(P, { closed: true, w: 4, key: 'cho', part: ch });
+    const pts = [[0, 40], [40, 30], [80, 45], [110, 35], [130, 120], [160, 110], [200, 70], [240, 50]].map(([x, y]) => [bx + 10 + x, by + 20 + y]);
+    gline(pts, { w: 4, key: 'chl', col: SK.red, part: ev(t0 + 6.3, 0.8), second: false });
+    handLetter('Börse', bx + 130, by + 205, 40, { col: SK.graph, key: 'chb' });
+  }
+  stamp('FAKE', CX, 780, 0.85, -0.15, t0 + 3.2, 'tk');
+  doodleHero(220, 1180, 58, { key: 'hero', legs: true, mood: TT > t0 + 6.3 ? 'wow' : 'puzzled', look: [1, -0.6], arms: [-0.8, 0.8] });
+  pageTag('Beispiel 2');
+  caption2(['Explosion am', 'Pentagon? Fake!'], ['Trotzdem fiel', 'kurz die Börse'], t0 + 6.2, [[1, 'Fake']], [[1, 'Börse']]);
+}
+
+// ================= 10 SELENSKYJ =================
+function sSelenskyj() {
+  sketchPage({ grid: 'dots' }); margins('m9');
+  const t0 = W0('ex_selenskyj');
+  gfill(VID, '#2e2925', { key: 'vf', off: [6, 6] }); gline(VID, { closed: true, key: 'vid', w: 6 });
+  const g = TT > t0 + 7.5;
+  ctx.save(); gclip(sketchBox(110, 500, 780, 430, 10));
+  ctx.fillStyle = '#d9d2c4'; ctx.fillRect(110, 500, 780, 430);
+  for (let i = 0; i < 6; i++) {
+    const y0 = 500 + i * 72, dx = g ? ((hash('vg' + i + B) % 3) - 1) * 14 : 0;
+    ctx.save(); ctx.beginPath(); ctx.rect(110, y0, 780, 72); ctx.clip(); ctx.translate(dx, 0);
+    // a man in an olive shirt at a lectern
+    const sh = [[360, 940], [380, 840], [440, 800], [560, 800], [620, 840], [640, 940]];
+    gfill(sh, '#6b6b3a', { key: 'shirt', off: [0, 0] }); gline(sh, { w: 4, key: 'shl' });
+    face(500, 700, 0.75, 'zel', { hairCol: '#3a2a20' });
+    const lec = sketchBox(390, 860, 220, 90, 6); gfill(lec, '#8b6b4a', { key: 'lec', off: [0, 0] }); gline(lec, { w: 4, key: 'leco' });
     ctx.restore();
   }
-  handLetter('echt?', 285, 1040, 56, { key: 'el', reveal: ev(cu.faces + 0.8, 0.3) });
-  if (TT < cu.ki) handLetter('echt?', 715, 1040, 56, { key: 'er', reveal: ev(cu.faces + 1.0, 0.3) });
-  const ki = ev(cu.ki, 0.15);
-  if (ki > 0) { inkStamp('KI', 715, 1030, 0.55 * (1.4 - 0.4 * ki), 0.12, ki, 'kis'); checkMark(285, 1110, 0.9, ev(cu.ki + 0.5, 0.2)); }
-  doodleHero(500, 1180, 60, { key: 'hero', legs: true, mood: TT >= cu.ki ? 'wow' : 'puzzled', look: [TT >= cu.ki ? 1 : -1, -0.6], arms: [-0.9, 0.9] });
-  if (TT < cu.ki) handLetter('?', 570, 1090 + 5 * Math.sin(B * 0.9), 80, { col: SK.graph, key: 'q2', jit: 1.5 });
-  pageTag('Deepfakes');
-  pageCaption(['Echt oder KI?'], [[0, 'KI']]);
+  ctx.restore();
+  const pb = ev(t0 + 0.3, Math.max(0.5, W1('ex_selenskyj') - t0));
+  gline([[130, 965], [870, 965]], { w: 4, key: 'pbb', col: '#777', second: false });
+  gline([[130, 965], [lerp(130, 870, pb), 965]], { w: 6, key: 'pbr', col: SK.red, second: false });
+  gfill([[130, 945], [130, 985], [160, 965]], '#ffffff', { key: 'pl', off: [0, 0] });
+  const sb = ev(t0 + 4.0, 0.3);
+  if (sb > 0) { bubble(760, 420, 280, 110, [-90, 50], 'vb', sb); handLetter('Gebt auf!', 760, 440, 54, { face: 'marker', key: 'vbt', reveal: sb }); }
+  stamp('DEEPFAKE', CX, 720, 0.7, -0.12, t0 + 10.2, 'zk');
+  handLetter('2022', 820, 1070, 54, { face: 'marker', key: 'zy' });
+  doodleHero(220, 1150, 60, { key: 'hero', legs: true, mood: TT > t0 + 10.2 ? 'wow' : 'puzzled', look: [1, -0.8], arms: [-0.8, 0.8] });
+  pageTag('Beispiel 3');
+  caption2(['Selenskyj ruft', 'zur Kapitulation?'], ['Nein: ein', 'Deepfake-Video'], t0 + 9.8, [[1, 'Kapitulation']], [[1, 'Deepfake']]);
 }
 
-// ---- era 3: young and old both fall for it
-function sceneAge() {
-  const cu = TIMELINE.cues;
+// ================= 11 OLD =================
+function sOld() {
+  sketchPage({ grid: 'dots' }); margins('m10');
+  const t0 = W0('old');
+  gpencil([[90, 1240], [420, 1234], [700, 1242], [930, 1236]], { key: 'gr', w: 3, a: 0.75 });
+  // an armchair
+  const ch = [[520, 1240], [520, 900], [560, 860], [800, 860], [840, 900], [840, 1240]];
+  gfill(ch, '#c98d6b', { key: 'chf', a: 0.8 }); gline(ch, { w: 5, key: 'ch' });
+  oldie(OLD.x, OLD.y, 1, 'old', { wow: TT > t0 + 3.5 });
+  // a phone at the ear, a cord
+  phoneIcon(OLD.x - 120, OLD.y + 20, 50, 110, 'oph');
+  const bb = ev(t0 + 2.5, 0.3);
+  if (bb > 0) { bubble(380, 520, 520, 170, [140, 70], 'ob', bb); handLetter('Oma, ich bin’s!', 380, 500, 50, { key: 'ob1', reveal: ev(t0 + 2.6, 0.3) }); handLetter('Ich brauche Geld!', 380, 565, 50, { face: 'marker', col: SK.red, key: 'ob2', reveal: ev(t0 + 3.0, 0.3) }); }
+  const rb = ev(t0 + 4.5, 0.4);   // the voice behind it is a KI
+  if (rb > 0) {
+    ctx.save(); ctx.globalAlpha *= rb;
+    const R = sketchBox(110, 860, 170, 150, 18); gfill(R, '#e7e2d6', { key: 'rbf' }); gline(R, { w: 4, key: 'rb', closed: true });
+    handLetter('KI', 195, 960, 70, { face: 'marker', key: 'rbt' });
+    ctx.restore();
+    ctx.save(); ctx.setLineDash([12, 12]); gpencil([[280, 930], [400, 900], [OLD.x - 150, OLD.y + 40]], { key: 'rbl', w: 3, a: 0.8, part: rb }); ctx.restore();
+    handLetter('KI-Stimme', 195, 1080, 42, { col: SK.graph, key: 'rbs', reveal: rb });
+  }
+  if (TT > t0 + 3.5) for (let i = 0; i < 2; i++) sweat(OLD.x + 110 + i * 14, OLD.y - 60 + i * 8, ((TT * 1.3 + i * 0.5) % 1), 'osw' + i);
+  pageTag('Ältere');
+  pageCaption(['Schockanruf mit', 'falscher KI-Stimme'], [[1, 'KI-Stimme']], { at: 0.6 });
+}
+
+// ================= 12 YOUNG =================
+function sYoung() {
   sketchPage({ grid: 'dots' });
-  gpencil([[90, 1240], [420, 1234], [700, 1242], [930, 1236]], { key: 'gr3', w: 3, a: 0.75 });
-  // the old person: ink face with glasses, a body, a cane
-  const op = ev(cu.old, 0.6);
-  gfill(loopPts(OLD.x, OLD.y, OLD.r, OLD.r, 0), '#f6dfc6', { key: 'oldf' });
-  gline(loopPts(OLD.x, OLD.y, OLD.r, OLD.r, 0.06), { key: 'oldh', w: 5 });
-  gpencil([[OLD.x - 110, OLD.y - 30], [OLD.x - 70, OLD.y - 110], [OLD.x, OLD.y - 125], [OLD.x + 70, OLD.y - 110], [OLD.x + 110, OLD.y - 30]], { key: 'oldhair', w: 3, a: 0.7 });
-  for (const sx of [-1, 1]) { ctx.fillStyle = SK.ink; ctx.beginPath(); ctx.ellipse(OLD.x + sx * 38, OLD.y - 5, 8, TT >= cu.fall ? 14 : 10, 0, 0, TAU); ctx.fill();
-    gline(loopPts(OLD.x + sx * 38, OLD.y - 5, 28, 24, 0.05), { w: 3.5, key: 'og' + sx, part: op }); }
-  gline([[OLD.x - 10, OLD.y - 8], [OLD.x + 10, OLD.y - 8]], { w: 3, key: 'ogb', second: false, part: op });
-  if (TT >= cu.fall) { ctx.fillStyle = SK.ink; ctx.beginPath(); ctx.ellipse(OLD.x, OLD.y + 55, 14, 18, 0, 0, TAU); ctx.fill(); }
-  else gline(arcPts(OLD.x, OLD.y + 30, 36, Math.PI * 0.2, Math.PI * 0.8, 8), { w: 4, key: 'om', second: false });
-  const body = [[OLD.x - 90, 1236], [OLD.x - 70, OLD.y + 140], [OLD.x + 70, OLD.y + 140], [OLD.x + 90, 1236]];
-  gfill(body, SK.sheet, { key: 'obf', a: clamp(op * 2) });
-  gline(body, { w: 5, key: 'ob', part: op });
-  gline([[OLD.x + 150, 1238], [OLD.x + 140, OLD.y + 200], [OLD.x + 110, OLD.y + 180]], { w: 5, key: 'cane', second: false, part: seg(op, 0.4, 1) });
-  // the young one: the hero with a phone
-  const yp = ev(cu.young, 0.3), hop = Math.sin(Math.PI * ev(cu.fall, 0.25));
-  if (yp > 0) {
-    doodleHero(270, 1000 - 50 * hop, 90, { key: 'hero', legs: true, mood: TT >= cu.fall ? 'wow' : 'calm', look: [0.6, 0.3], arms: [0.2, 0.2] });
-    gfill(sketchBox(300, 950 - 50 * hop, 60, 100, 10), SK.sheet, { key: 'yph', off: [0, 0] });
-    gline(sketchBox(300, 950 - 50 * hop, 60, 100, 10), { w: 4, key: 'ypho' });
+  const t0 = W0('young');
+  for (let i = 0; i < 8; i++) {   // posts whooshing past
+    const lane = i % 2 ? 860 : 140, y = 1250 - ((TT - E0) * 520 + i * 190) % 1000;
+    gline([[lane, y + 120], [lane, y + 200]], { w: 2.5, key: 'sp' + i, col: SK.graph, second: false });
+    noteCard(lane, y, (i % 3 - 1) * 0.1, 0.8, 1, 'yc' + i, i === 5 ? SK.red : SK.graph);
   }
-  const fb = ev(cu.fall, 0.3);
-  if (fb > 0) {
-    bubble(250, 680, 280, 110, [30, 50], 'b3a', fb); handLetter('Krass!', 250, 700, 56, { key: 'kr', reveal: ev(cu.fall + 0.15, 0.3) });
-    bubble(690, 540, 320, 110, [20, 50], 'b3b', ev(cu.fall + 0.5, 0.3)); handLetter('Unglaublich!', 690, 560, 48, { key: 'ug', reveal: ev(cu.fall + 0.65, 0.3) });
-  }
-  pageTag('Alle');
-  pageCaption(['Jung und Alt', 'fallen drauf rein'], [[0, 'Jung und Alt']]);
+  doodleHero(HERO_Y.x, HERO_Y.y, HERO_Y.r, { key: 'hero', legs: true, mood: TT > t0 + 4.5 ? 'wow' : 'happy', look: [0.2, 0.6], arms: [0.3, 0.3] });
+  phoneIcon(HERO_Y.x, HERO_Y.y + 30, 90, 150, 'yph');
+  const sh = ev(t0 + 3.0, 0.4);
+  if (sh > 0) { bubble(640, 560, 280, 100, [-80, 60], 'yb', sh); handLetter('Teilen!', 640, 580, 54, { face: 'marker', key: 'ybt', reveal: sh }); }
+  for (let i = 0; i < 4; i++) { const k = (TT * 0.9 + i * 0.25) % 1; if (TT > t0 + 1) { ctx.save(); ctx.globalAlpha *= 1 - k; heart(300 + i * 40, 800 - k * 260, 2.2, 'yh' + i); ctx.restore(); } }
+  stamp('FAKE', 760, 900, 0.5, 0.15, t0 + 4.5, 'yk');
+  pageTag('Jugendliche');
+  pageCaption(['Schnell gescrollt,', 'schnell geteilt'], [[1, 'geteilt']], { at: 0.6 });
 }
 
-// ---- era 4: check first, then share
-function sceneCheck() {
-  const cu = TIMELINE.cues;
-  sketchPage({ grid: 'ruled' });
-  const card = sketchBox(130, 640, 640, 420, 18);
-  gfill(card, '#fffdf6', { key: 'cardf' }); gline(card, { closed: true, w: 5, key: 'card' });
-  [['Quelle?', cu.c1], ['Wer sagt das?', cu.c2], ['Andere Seiten?', cu.c3]].forEach(([s, t], i) => {
-    const y = 760 + i * 115;
-    gline(sketchBox(170, y - 50, 60, 60, 8), { w: 4, key: 'box' + i });
-    handLetter(s, 260, y, 58, { align: 'left', key: 'it' + i, reveal: ev(t - 0.6, 0.4) });
-    checkMark(202, y - 22, 0.9, ev(t, 0.2), SK.green, 'ck' + i);
+// ================= 13 EFFECTS =================
+function sEffects() {
+  sketchPage({ grid: 'dots' }); margins('m12');
+  const t0 = W0('effects'), G = GAUGE;
+  const arc = arcPts(G.x, G.y, G.r, Math.PI, TAU, 30);
+  gline(arc, { w: 6, key: 'ga' });
+  for (let i = 0; i <= 6; i++) { const a = Math.PI + i / 6 * Math.PI; gline([[G.x + Math.cos(a) * (G.r - 10), G.y + Math.sin(a) * (G.r - 10)], [G.x + Math.cos(a) * (G.r - 40), G.y + Math.sin(a) * (G.r - 40)]], { w: 3, key: 'gt' + i, second: false }); }
+  handLetter('niedrig', G.x - G.r + 30, G.y + 50, 40, { col: SK.graph, key: 'gl' }); handLetter('hoch', G.x + G.r - 20, G.y + 50, 40, { col: SK.graph, key: 'gh' });
+  handLetter('Vertrauen', G.x, G.y - G.r - 30, 60, { face: 'marker', key: 'gv' });
+  const v = 1 - EZ.io(seg(TT, t0 + 0.5, W1('effects'))) * 0.92, a = Math.PI + v * Math.PI + 0.03 * Math.sin(B * 2);
+  gline([[G.x, G.y], [G.x + Math.cos(a) * (G.r - 50), G.y + Math.sin(a) * (G.r - 50)]], { w: 8, key: 'gn', col: SK.red, second: false });
+  gfill(loopPts(G.x, G.y, 18, 18, 0), SK.ink, { key: 'gc', off: [0, 0] });
+  const items = [['Streit', 210, W0('effects') + 1.2], ['Geld weg', 500, W0('effects') + 2.4], ['Wem glauben?', 790, W0('effects') + 4.2]];
+  items.forEach(([lab, x, t], i) => {
+    const k = ev(t, 0.4); if (k <= 0) return;
+    ctx.save(); ctx.translate(x, 1010); ctx.scale(k, k);
+    if (i === 0) { face(-45, 0, 0.35, 'e1a', { wow: true }); face(45, 0, 0.35, 'e1b', { wow: true }); gline([[-12, -40], [0, -20], [-8, -10], [8, 10]], { w: 4, key: 'zz', col: SK.red, second: false }); }
+    if (i === 1) { const wl = sketchBox(-60, -40, 120, 80, 10); gfill(wl, '#8b6b4a', { key: 'wl', off: [0, 0] }); gline(wl, { w: 4, key: 'wlo', closed: true }); for (let c = 0; c < 2; c++) { const k2 = (TT * 0.8 + c * 0.5) % 1; gfill(loopPts(30 + k2 * 60, -40 - k2 * 70, 16, 16, 0), SK.hilite, { key: 'cn' + c, off: [0, 0] }); } }
+    if (i === 2) handLetter('?', 0, 30, 120, { face: 'marker', key: 'eq' });
+    handLetter(lab, 0, 110, 42, { key: 'el' + i });
+    ctx.restore();
   });
-  // the lens (bridge counterpart): moves down the list
-  const ly = LENS.y + 60 * EZ.io(seg(TT, cu.c1, cu.c3));
-  ctx.save(); ctx.globalAlpha = 0.25; gfill(loopPts(LENS.x, ly, LENS.r, LENS.r, 0), SK.hilite, { key: 'lensf', off: [0, 0] }); ctx.restore();
+  pageTag('Folgen');
+  pageCaption(['Am Ende glaubt man', 'gar nichts mehr'], [[1, 'nichts']], { at: 4.0 });
+}
+
+// ================= 14 Q&A INTRO =================
+function sQAIntro() {
+  sketchPage({ grid: 'ruled' });
+  handLetter('Fragen', CX, 520, 120, { face: 'marker', key: 'qa1', reveal: ev(A(0.4), 0.5) });
+  handLetter('& Antworten', CX, 650, 100, { face: 'marker', key: 'qa2', reveal: ev(A(0.9), 0.5) });
+  highlight(300, 700, 620, 60, ev(A(1.5), 0.3), { key: 'qah' });
+  const b1 = ev(A(1.8), 0.3), b2 = ev(A(2.4), 0.3);
+  bubble(250, 840, 200, 170, [40, 60], 'qb1', b1); if (b1 > 0) handLetter('?', 250, 880, 110, { face: 'marker', key: 'qbq' });
+  bubble(750, 840, 200, 170, [-40, 60], 'qb2', b2); if (b2 > 0) handLetter('!', 750, 880, 110, { face: 'marker', col: SK.green, key: 'qbx' });
+  girl(250, 1080, 0.55, 'gq');
+  doodleHero(750, 1100, 70, { key: 'hero', legs: true, mood: 'happy', look: [-1, -0.3], arms: [1.3, -0.6] });
+  pageTag('Tipps');
+  pageCaption(['Was kann man', 'dagegen tun?'], [[1, 'tun']], { at: 0.4 });
+}
+
+// ================= 15-18 Q&A =================
+const QA = [
+  { q: ['Wie erkenne ich', 'ein Deepfake?'], a: ['Augen & Hände prüfen', 'Zähne & Ränder ansehen', 'Wer hat es gepostet?'], cap: [['Genau hinschauen', 'und Quelle suchen'], [[0, 'hinschauen']]], icon: 'lens' },
+  { q: ['Wie schützen sich', 'junge Leute?'], a: ['Nicht sofort teilen', 'Quelle prüfen', 'Bilder-Rückwärtssuche', 'Correctiv & dpa-Faktencheck'], cap: [['Erst checken,', 'dann teilen'], [[0, 'checken']]], icon: null },
+  { q: ['Wie schützen wir', 'ältere Menschen?'], a: ['Darüber reden', 'Familien-Codewort', 'Auflegen, selbst anrufen'], cap: [['Codewort ausmachen,', 'selbst zurückrufen'], [[0, 'Codewort']]], icon: 'heart' },
+  { q: ['Fake geteilt –', 'was jetzt?'], a: ['Beitrag löschen', 'Korrektur posten', 'Anderen Bescheid sagen'], cap: [['Fehler passieren –', 'korrigieren!'], [[1, 'korrigieren']]], icon: 'eraser' },
+];
+function sQA(n) {
+  sketchPage({ grid: 'ruled' });
+  const d = QA[n], qid = 'q' + (n + 1), aid = 'a' + (n + 1), tq = W0(qid), ta = W0(aid), da = W1(aid) - ta;
+  // the question bubble with the questioner
+  gfill(QB, '#fffdf6', { key: 'qbf' }); gline(QB, { closed: true, key: 'qb', w: 5 });
+  handLetter('F:', 140, 480, 60, { face: 'marker', col: SK.red, key: 'qf' });
+  d.q.forEach((l, i) => handLetter(l, 540, 480 + i * 70, 62, { face: 'marker', key: 'qq' + n + i, reveal: ev(tq + i * 0.5, 0.6) }));
+  girl(860, 330, 0.42, 'gq' + n, { wow: TT < ta });
+  // the answer card
+  const ck = ev(ta - 0.2, 0.4);
+  if (ck > 0) {
+    gfill(QCARD, '#fffdf6', { key: 'acf', a: clamp(ck * 2) }); gline(QCARD, { closed: true, key: 'ac', w: 5, part: ck });
+    handLetter('A:', 140, 740, 60, { face: 'marker', col: SK.green, key: 'af' });
+    d.a.forEach((l, i) => {
+      const t = ta + da * (i + 0.15) / d.a.length, y = 760 + i * (d.a.length > 3 ? 105 : 130);
+      handLetter(l, 230, y + 10, d.a.length > 3 ? 50 : 56, { align: 'left', key: 'aa' + n + i, reveal: ev(t, 0.5) });
+      checkMark(195, y - 10, 0.75, ev(t + 0.4, 0.2), SK.green, 'ack' + n + i);
+    });
+    // a little icon in the card corner
+    const ix = 820, iy = 1120, ik = ev(ta + 0.5, 0.4);
+    if (ik > 0) {
+      if (d.icon === 'lens') { gline(loopPts(ix, iy - 20, 48, 48, 0.05), { w: 6, key: 'il' }); gline([[ix + 34, iy + 14], [ix + 70, iy + 50]], { w: 12, key: 'ilh', second: false }); }
+      if (d.icon === 'phone') { phoneIcon(ix, iy - 10, 70, 120, 'ip'); checkMark(ix, iy - 10, 0.7, ik, SK.green, 'ipc'); }
+      if (d.icon === 'heart') heart(ix, iy - 20, 4, 'ih');
+      if (d.icon === 'eraser') { ctx.save(); ctx.translate(ix, iy - 20); ctx.rotate(-0.5); const er = sketchBox(-60, -25, 120, 50, 8); gfill(er, '#ef9aa6', { key: 'ie', off: [0, 0] }); gline(er, { w: 4, key: 'ieo', closed: true }); ctx.restore(); }
+    }
+  }
+  doodleHero(160, 1180, 52, { key: 'hero', legs: true, mood: TT > ta ? 'happy' : 'puzzled', look: [1, -0.6], arms: TT > ta ? [1.2, -0.5] : [-0.8, 0.8] });
+  pageTag('Frage ' + (n + 1));
+  pageCaption(d.cap[0], d.cap[1], { at: ta - E0 + 0.6 });
+}
+
+// ================= 19 CHECK =================
+function sCheck() {
+  sketchPage({ grid: 'ruled' });
+  const t0 = W0('check'), d = W1('check') - t0;
+  gfill(CARD_L, '#fffdf6', { key: 'clf' }); gline(CARD_L, { closed: true, w: 5, key: 'cl' });
+  handLetter('Checkliste', 450, 700, 64, { face: 'marker', key: 'clt' });
+  underline(300, 600, 725, { col: SK.red, w: 5, key: 'clu', part: ev(A(0.3), 0.3) });
+  const its = ['Wer sagt das?', 'Gibt es eine Quelle?', 'Berichten andere?', 'Erst dann teilen!'];
+  its.forEach((s, i) => {
+    const y = 820 + i * 95, t = t0 + d * (0.2 + i * 0.2);
+    gline(sketchBox(150, y - 50, 56, 56, 8), { w: 4, key: 'box' + i });
+    handLetter(s, 235, y, 54, { align: 'left', key: 'it' + i, reveal: ev(t - 0.5, 0.4) });
+    checkMark(180, y - 22, 0.85, ev(t, 0.2), SK.green, 'ck' + i);
+  });
+  const ly = LENS.y + 120 * EZ.io(seg(TT, t0 + 1, W1('check')));
+  ctx.save(); ctx.globalAlpha = 0.28; gfill(loopPts(LENS.x, ly, LENS.r, LENS.r, 0), SK.hilite, { key: 'lensf', off: [0, 0] }); ctx.restore();
   gline(loopPts(LENS.x, ly, LENS.r, LENS.r, 0.06), { w: 8, key: 'lens' });
-  gline([[LENS.x + LENS.r * 0.72, ly + LENS.r * 0.72], [LENS.x + LENS.r * 1.35, ly + LENS.r * 1.35]], { w: 18, key: 'handle', second: false });
-  const hop = Math.sin(Math.PI * ev(cu.hop, 0.3));
-  doodleHero(500, 1170 - 60 * hop, 64, { key: 'hero', legs: true, mood: TT >= cu.hop ? 'happy' : 'calm', look: [0.5, -1], sy: 1 + 0.06 * hop, arms: TT >= cu.hop ? [1.2, 1.2] : [-0.7, -0.7] });
-  if (TT >= cu.hop) for (let i = 0; i < 3; i++) sparkle(380 + i * 120, 1060 - (i % 2) * 40, 30, ev(cu.hop + i * 0.1, 0.5), 'sp' + i);
-  pageTag('Tipp');
-  pageCaption(['Erst prüfen,', 'dann teilen!'], [[0, 'prüfen']]);
+  gline([[LENS.x + LENS.r * 0.72, ly + LENS.r * 0.72], [LENS.x + LENS.r * 1.3, ly + LENS.r * 1.3]], { w: 18, key: 'handle', second: false });
+  doodleHero(840, 1210, 54, { key: 'hero', legs: true, mood: 'calm', look: [-1, -1], arms: [-0.6, 0.6] });
+  pageTag('Merke');
+  pageCaption(['Erst prüfen,', 'dann teilen!'], [[0, 'prüfen']], { at: 0.5 });
+}
+
+// ================= 20 OUTRO =================
+function sOutro() {
+  sketchPage({ grid: 'dots' }); margins('m19');
+  const t0 = W0('outro');
+  const hop = Math.max(Math.sin(Math.PI * ev(t0 + 1.6, 0.3)), Math.sin(Math.PI * ev(t0 + 2.4, 0.3)));
+  doodleHero(CX, 900 - 70 * hop, 150, { key: 'hero', legs: true, mood: TT > t0 + 1.6 ? 'happy' : 'calm', look: [0, -0.5], sy: 1 + 0.06 * hop, sx: 1 - 0.04 * hop, arms: TT > t0 + 1.6 ? [1.3, 1.3] : [-0.6, 0.6] });
+  const [x0, x1] = handLetter('Bleib kritisch!', CX, 560, 110, { face: 'marker', key: 'bk', reveal: ev(t0 + 1.4, 0.7) });
+  highlight(x0 + 160, x1, 530, 60, ev(t0 + 2.1, 0.3), { key: 'bkh' });
+  underline(x0, x1, 600, { col: SK.red, w: 7, key: 'bku', part: ev(t0 + 2.3, 0.3) });
+  for (let i = 0; i < 5; i++) sparkle(240 + i * 130, 760 - (i % 2) * 60, 34, ev(t0 + 1.6 + i * 0.12, 0.6), 'osp' + i);
+  for (let i = 0; i < 3; i++) doodleBird(820 - 60 * (TT - E0) + i * 64, 420 + i * 30, 1.2, (B + i) % 2, 'ob' + i);
+  pageTag('Ende');
+  pageCaption(['Denk nach,', 'bevor du teilst'], [[1, 'teilst']], { at: 0.4 });
 }
 // ERAS, CAMERAS, BRIDGES — Fake News & Deepfakes
-const ERA_BG = ['#f2ead8', '#efe3c4', '#ece6d6', '#f2ead8', '#efe8d2'];
+const ERA_BG = ERA_IDS.map((_, i) => ['#f2ead8', '#efe3c4', '#ece6d6'][i % 3]);
 function pieceCam(era, t) {
-  if (era === 0) return push(t, 1.4, 2.4, { z: 1.15, p: [540, 700], to: [540, 700] }, 4.2, 5.4);
-  if (era === 1) return push(t, 6.6, 7.4, { z: 1.12, p: [540, 720], to: [540, 760] }, 7.6, 8.6);
-  if (era === 2) return push(t, 14.3, 15.3, { z: 1.12, p: [715, 760], to: [600, 780] }, 16.6, 17.6);
-  if (era === 4) return push(t, 28.3, 29.3, { z: 1.08, p: [500, 1000], to: [500, 960] });
+  const id = ERA_IDS[era];
+  if (id === 'ex_pope') return push(t, W0('ex_pope') + 8.4, W0('ex_pope') + 9.4, { z: 1.12, p: [500, 760], to: [500, 760] });
+  if (id === 'ex_pentagon') return push(t, W0('ex_pentagon') + 1, W0('ex_pentagon') + 3, { z: 1.08, p: [600, 760], to: [560, 760] }, W0('ex_pentagon') + 5.5, W0('ex_pentagon') + 6.5);
+  if (id === 'real') return push(t, ERA_T[5] + 2.4, ERA_T[5] + 3.4, { z: 1.08, p: [500, 760], to: [500, 760] });
   return null;
 }
-const BRIDGES = [
-  { tc: 6, A: () => ({ P: PH0, c: SK.sheet }), B: () => ({ P: PH1, c: SK.sheet }) },
-  { tc: 12, A: () => ({ P: PH1, c: SK.sheet }), B: () => ({ P: FR_L, c: SK.sheet }) },
-  { tc: 18, A: () => ({ P: FR_R, c: '#f6dfc6' }), B: () => ({ P: loopPts(OLD.x, OLD.y, OLD.r, OLD.r, 0, 0, 40), c: '#f6dfc6' }) },
-  { tc: 24, A: () => ({ P: loopPts(OLD.x, OLD.y, OLD.r, OLD.r, 0, 0, 40), c: '#f6dfc6' }), B: () => ({ P: loopPts(LENS.x, LENS.y, LENS.r, LENS.r, 0, 0, 40), c: SK.hilite }) },
+const hb = (x, y, r) => loopPts(x, y, r, r, 0, 0, 40);
+const SHAPES = [
+  [PH_S, PH, SK.sheet], [PH, NP, SK.sheet], [NP, CARD0, SK.sheet], [CARD0, KB, '#e7e2d6'], [FACE_OV, FR_R, SKIN],
+  [FR_R, CORK_M, '#fffdf6'], [CORK_M, PF, '#fffdf6'], [PF, PF, '#fffdf6'], [PF, VID, '#fffdf6'], [VID, hb(OLD.x, OLD.y, OLD.r), SKIN],
+  [hb(OLD.x, OLD.y, OLD.r), hb(HERO_Y.x, HERO_Y.y, HERO_Y.r), SK.terra], [hb(HERO_Y.x, HERO_Y.y, HERO_Y.r), hb(GAUGE.x, GAUGE.y, GAUGE.r), SK.sheet],
+  [hb(GAUGE.x, GAUGE.y, GAUGE.r), hb(250, 840, 100), SK.sheet], [hb(250, 840, 100), QB, '#fffdf6'], [QB, QB, '#fffdf6'], [QB, QB, '#fffdf6'], [QB, QB, '#fffdf6'],
+  [QB, CARD_L, '#fffdf6'], [hb(LENS.x, LENS.y + 120, LENS.r), hb(CX, 900, 150), SK.terra],
 ];
+const BRIDGES = SHAPES.map(([a, b, c], i) => ({ tc: ERA_T[i + 1], A: () => ({ P: a, c }), B: () => ({ P: b, c }) }));
 
 // =====================================================================
 //  kit/morph.js — the renderer for pieces built from ERAS (scenes) joined by SHAPE MORPHS.
@@ -1561,27 +1893,22 @@ async function buildScore(sampleRate = 48000, part = 'mix', normIn = null) {
   }
   const claudeMotif = (t, notes, vel) => notes.forEach(([n, dt], i) => pluck(t + dt, nz(n), vel, -0.15 + i * 0.1, 0.6, 1300, 0.35));
   const childMotif = (t, notes, vel, bright = 5200, send = 0.3) => notes.forEach(([n, dt], i) => pluck(t + dt, nz(n), vel, 0.2 - i * 0.1, 0.32, bright, send));
-  // SCORE — Fake News & Deepfakes
-  const T = TIMELINE, cu = T.cues;
+  // SCORE — Fake News & Deepfakes: a soft pad per era under the voice, plucks on the new scene, hits on the stamps
+  const CH = [['D3', 'A3', 'E4'], ['B2', 'Fs3', 'D4'], ['G2', 'D3', 'B3'], ['A2', 'E3', 'Cs4']];
   to = 'm';
-  pad(0.0, 6.1, ['D3', 'A3', 'E4'], 0.03, { type: 'triangle', cut: 900, att: 0.3, rel: 0.3 });
-  pad(6.0, 12.1, ['B2', 'Fs3', 'D4'], 0.035, { type: 'triangle', cut: 1000, att: 0.2, rel: 0.3 });
-  pad(12.0, 18.1, ['G2', 'D3', 'As3'], 0.04, { cut: 700, att: 0.3, rel: 0.3, send: 0.4 });
-  pad(18.0, 23.6, ['A2', 'E3', 'C4'], 0.035, { cut: 800, att: 0.3, rel: 0.2 });
-  pad(24.3, 30.0, ['D2', 'A2', 'Fs3', 'E4'], 0.05, { cut: 900, att: 0.4, rel: 0.5, send: 0.4 });
-  pluck(cu.ping, nz('A5'), 0.22, 0, 0.5, 4200, 0.4);
-  for (let i = 0; i < 6; i++) pluck(cu.spread + i * E8 * 1.5, nz(['D5', 'E5', 'Fs5', 'A5', 'B5', 'D6'][i]), 0.15, (i % 2 ? 0.3 : -0.3), 0.3, 3500, 0.3);
-  [cu.c1, cu.c2].forEach((t, i) => pluck(t, nz(i ? 'A4' : 'Fs4'), 0.2, 0.1, 0.4, 3000, 0.3));
-  pluck(cu.c3, nz('D5'), 0.3, 0, 0.6, 4000, 0.4);
-  [['D4', 0], ['Fs4', 0], ['A4', 0], ['D5', E16]].forEach(([n, dt]) => pluck(cu.hop + dt, nz(n), 0.32, 0, 0.9, 4500, 0.5));
-  sub(cu.hop, 0.35);
+  for (let i = 0; i < ERA_T.length - 1; i++) {
+    const t0 = ERA_T[i], t1 = ERA_T[i + 1], last = i === ERA_T.length - 2, pre = i === ERA_T.length - 3;
+    pad(t0, pre ? t1 - 0.4 : t1 + 0.1, last ? ['D2', 'A2', 'Fs3', 'E4'] : CH[i % 4], last ? 0.06 : 0.03, { type: 'triangle', cut: 900, att: 0.3, rel: 0.3, send: 0.3 });
+    if (i > 0) pluck(t0 + 0.05, nz(['D5', 'Fs5', 'A5', 'E5'][i % 4]), 0.12, (i % 2 ? 0.3 : -0.3), 0.4, 3500, 0.3);
+  }
+  const tE = W0('outro') + 1.6;
+  [['D4', 0], ['Fs4', 0], ['A4', 0], ['D5', E16], ['A5', E8]].forEach(([n, dt]) => pluck(tE + dt, nz(n), 0.3, 0, 1.0, 4500, 0.5));
+  sub(tE, 0.35);
+  chime(tE + 0.8, [nz('D5'), nz('A5'), nz('E6')], 0.06, 0);
   to = 's';
-  for (let i = 0; i < 10; i++) noiseHit(cu.phone + i * E16, 0.06, 'bandpass', 3600 + (i % 3) * 300, 2, 0.05, -0.2);
-  noiseHit(cu.fake, 0.25, 'lowpass', 400, 1, 0.12, 0);
-  for (let i = 0; i < 6; i++) blip(cu.glitch + i * E16, 900 + (i % 3) * 500, 400, 0.04, 0.03, 0.2);
-  noiseHit(cu.ki, 0.25, 'lowpass', 400, 1, 0.12, 0);
-  for (const tc of [6, 12, 18]) sweep(tc - 0.5, tc, 0.012, 500, 2800, 0);
-  chime(24.3, [nz('D5'), nz('A5'), nz('E6')], 0.06, 0);
+  for (const t of [ERA_T[2] + 3.4, ERA_T[5] + 3.6, W0('ex_pope') + 8.6, W0('ex_pentagon') + 3.2, W0('ex_selenskyj') + 10.2, W0('young') + 4.5]) noiseHit(t, 0.25, 'lowpass', 400, 1, 0.12, 0);
+  for (let i = 1; i < ERA_T.length - 1; i++) sweep(ERA_T[i] - 0.4, ERA_T[i], 0.008, 500, 2600, 0);
+  for (let i = 0; i < 10; i++) noiseHit(0.4 + i * E16, 0.05, 'bandpass', 3600 + (i % 3) * 300, 2, 0.04, -0.2);
   // =====================================================================
   //  kit/score-tail.js — render, fold the tail over the loop point, loudness stage
   //  (RMS-normalise to -17 dBFS, look-ahead limiter at -1 dBFS; stems share the mix gain curve)

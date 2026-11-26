@@ -15,49 +15,38 @@
 <script>
 "use strict";
 // =====================================================================
-//  SKETCHBOOK DEMO — 9:16, 6.0s @ 120 BPM, 24fps. A puzzled doodle gets an idea: a lightbulb is pencilled in,
-//  inked and scribbled yellow; the bulb becomes the sun over a sketched hill, and the hero waves from the top.
-//  Proves the style kit renders, morphs and stays deterministic.
-//  Build: node <skill>/tools/build.mjs <skill>/styles/sketchbook/demo
+//  FAKE NEWS & DEEPFAKES — 9:16 sketchbook explainer in German, timed to an ElevenLabs voice-over (VOICE).
 // =====================================================================
 const FPS = 24, W = 1080, H = 1920;
 const BPM = 120, BEAT = 60 / BPM, E8 = BEAT / 2, E16 = BEAT / 4;
-const DURATION = 30.0;
+const DURATION = VOICE.duration;
 const NFRAMES = Math.round(DURATION * FPS);
 const LOOP_T = NFRAMES / FPS;
 const SAFE = { top: 240, bottom: 420, right: 140 };
 const HAND = '"Ink Free", "Segoe Print", "Bradley Hand", "Comic Sans MS", "Chalkboard SE", cursive';
 const CX = 500;
-
-const ERA_LIST = [[0, 6, () => scenePhone()], [6, 12, () => sceneShare()], [12, 18, () => sceneDeep()], [18, 24, () => sceneAge()], [24, 30, () => sceneCheck()]];
-const SHOTS = [
-  ['handy', 0, 0, 6, 'jeden Tag: ein Handy voller Schlagzeilen'],
-  ['teilen', 1, 6, 12, 'eine Luege wird geteilt und geteilt'],
-  ['deepfake', 2, 12, 18, 'zwei gleiche Gesichter: eins ist KI'],
-  ['jungalt', 3, 18, 24, 'Jung und Alt fallen darauf rein'],
-  ['pruefen', 4, 24, 30, 'Lupe und Checkliste: erst pruefen, dann teilen'],
-];
+// eras follow the voice: each starts 0.3s before its first line
+const LT = (id) => VOICE.lines.find((l) => l.id === id);
+const ERA_IDS = ['intro', 'feed', 'fake', 'spread', 'ki', 'real', 'ex_intro', 'ex_pope', 'ex_pentagon', 'ex_selenskyj', 'old', 'young', 'effects', 'qa_intro', 'q1', 'q2', 'q3', 'q4', 'check', 'outro'];
+const ERA_T = [0, ...ERA_IDS.slice(1).map((id) => LT(id).t0 - 0.3), VOICE.duration];
+const ERA_FN = [() => sIntro(), () => sFeed(), () => sFake(), () => sSpread(), () => sKI(), () => sReal(), () => sExIntro(), () => sPope(), () => sPentagon(), () => sSelenskyj(), () => sOld(), () => sYoung(), () => sEffects(), () => sQAIntro(), () => sQA(0), () => sQA(1), () => sQA(2), () => sQA(3), () => sCheck(), () => sOutro()];
+const ERA_LIST = ERA_FN.map((f, i) => [ERA_T[i], ERA_T[i + 1], () => f()]);
+const SHOT_TITLES = ERA_IDS;
 const TIMELINE = {
   width: W, height: H, fps: FPS, bpm: BPM, duration: DURATION, frames: NFRAMES, loop: LOOP_T, safe: SAFE,
   format: 'morph-chain',
-  shots: SHOTS.map(([key, era, t0, t1, title], i) => ({ id: i + 1, key, era, t0, t1, title })),
+  shots: SHOT_TITLES.map((title, i) => ({ id: i + 1, key: 's' + i, era: i, t0: ERA_T[i], t1: ERA_T[i + 1], title })),
   cuts: [],
-  morphs: [6, 12, 18, 24],
-  cues: { phone: 0.5, head: 1.5, ping: 3.0, fake: 7.0, spread: 8.0, faces: 12.6, glitch: 14.5, ki: 15.5, young: 18.6, old: 19.4, fall: 21.5, lens: 24.5, c1: 25.5, c2: 26.5, c3: 27.5, hop: 28.5 },
+  morphs: ERA_T.slice(1, -1),
+  cues: {},
   acts: [
-    { name: '1 Handy', role: 'setup', t0: 0, t1: 6 },
-    { name: '2 Teilen', role: 'build', t0: 6, t1: 12 },
-    { name: '3 Deepfake', role: 'turn', t0: 12, t1: 18 },
-    { name: '4 Jung & Alt', role: 'build', t0: 18, t1: 24 },
-    { name: '5 Pruefen', role: 'payoff', t0: 24, t1: 30 },
+    { name: '1 Medien & Fakes', role: 'setup', t0: 0, t1: ERA_T[6] },
+    { name: '2 Echte Faelle', role: 'build', t0: ERA_T[6], t1: ERA_T[10] },
+    { name: '3 Wen es trifft', role: 'turn', t0: ERA_T[10], t1: ERA_T[13] },
+    { name: '4 Fragen & Antworten', role: 'build', t0: ERA_T[13], t1: ERA_T[18] },
+    { name: '5 Merke', role: 'payoff', t0: ERA_T[18], t1: DURATION },
   ],
-  board: [
-    { t: 4.5, title: 'Handy', sound: 'pencil', next: 'morph' },
-    { t: 10.5, title: 'Teilen', sound: 'blips', next: 'morph' },
-    { t: 16.5, title: 'Deepfake', sound: 'glitch', next: 'morph' },
-    { t: 22.5, title: 'Jung & Alt', sound: 'pad', next: 'morph' },
-    { t: 29, title: 'Pruefen', sound: 'chime', next: 'end' },
-  ],
-  narration: [],
+  board: ERA_T.slice(0, -1).map((t, i) => ({ t: Math.min(ERA_T[i + 1] - 0.6, t + 5.2), title: SHOT_TITLES[i], sound: '', next: '' })),
+  narration: VOICE.lines.map((l) => ({ t0: l.t0, t1: l.t1, text: l.text })),
 };
 window.TIMELINE = TIMELINE;
