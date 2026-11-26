@@ -1,0 +1,21 @@
+  // SCORE — Fake News & Deepfakes
+  const T = TIMELINE, cu = T.cues;
+  to = 'm';
+  pad(0.0, 6.1, ['D3', 'A3', 'E4'], 0.03, { type: 'triangle', cut: 900, att: 0.3, rel: 0.3 });
+  pad(6.0, 12.1, ['B2', 'Fs3', 'D4'], 0.035, { type: 'triangle', cut: 1000, att: 0.2, rel: 0.3 });
+  pad(12.0, 18.1, ['G2', 'D3', 'As3'], 0.04, { cut: 700, att: 0.3, rel: 0.3, send: 0.4 });
+  pad(18.0, 23.6, ['A2', 'E3', 'C4'], 0.035, { cut: 800, att: 0.3, rel: 0.2 });
+  pad(24.3, 30.0, ['D2', 'A2', 'Fs3', 'E4'], 0.05, { cut: 900, att: 0.4, rel: 0.5, send: 0.4 });
+  pluck(cu.ping, nz('A5'), 0.22, 0, 0.5, 4200, 0.4);
+  for (let i = 0; i < 6; i++) pluck(cu.spread + i * E8 * 1.5, nz(['D5', 'E5', 'Fs5', 'A5', 'B5', 'D6'][i]), 0.15, (i % 2 ? 0.3 : -0.3), 0.3, 3500, 0.3);
+  [cu.c1, cu.c2].forEach((t, i) => pluck(t, nz(i ? 'A4' : 'Fs4'), 0.2, 0.1, 0.4, 3000, 0.3));
+  pluck(cu.c3, nz('D5'), 0.3, 0, 0.6, 4000, 0.4);
+  [['D4', 0], ['Fs4', 0], ['A4', 0], ['D5', E16]].forEach(([n, dt]) => pluck(cu.hop + dt, nz(n), 0.32, 0, 0.9, 4500, 0.5));
+  sub(cu.hop, 0.35);
+  to = 's';
+  for (let i = 0; i < 10; i++) noiseHit(cu.phone + i * E16, 0.06, 'bandpass', 3600 + (i % 3) * 300, 2, 0.05, -0.2);
+  noiseHit(cu.fake, 0.25, 'lowpass', 400, 1, 0.12, 0);
+  for (let i = 0; i < 6; i++) blip(cu.glitch + i * E16, 900 + (i % 3) * 500, 400, 0.04, 0.03, 0.2);
+  noiseHit(cu.ki, 0.25, 'lowpass', 400, 1, 0.12, 0);
+  for (const tc of [6, 12, 18]) sweep(tc - 0.5, tc, 0.012, 500, 2800, 0);
+  chime(24.3, [nz('D5'), nz('A5'), nz('E6')], 0.06, 0);
